@@ -5,4 +5,11 @@
  
 {% block contenido %}
     <h2>Aca estan mis noticias</h2>
+    {% for noti in Noticias %}
+    <img src="{{noti.imagen.url}}" width="50">
+        <p><a href="{% url 'noticias:detalle' noti.pk %}">TITULO: {{noti.titulo}}</a></p>
+        <p>FECHA: {{noti.fecha_publicacion}}</p>
+        <p>CATEGORIA: {{noti.categoria_noticia}}</p>
+        <p>CONTENIDO: {{noti.contenido}}</p>
+    {% endfor %}
 {% endblock contenido %}

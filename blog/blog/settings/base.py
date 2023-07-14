@@ -22,10 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bnh(u^c8aqi6t30x9%q^u9#rdx#jc2v975&z$(l!n7aei79wj*'
+SECRET_KEY = 'django-insecure-tq@6ke!od%qr2jur217271mz7kv&zhp8x9hy&9hxwowftr0_+&'
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
-
 
 # Application definition
 
@@ -39,6 +38,7 @@ INSTALLED_APPS = [
     'apps.usuarios',
     'apps.noticias',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,7 +69,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'blog.wsgi.application'
-
 
 
 # Password validation
@@ -106,12 +105,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(os.path.dirname(BASE_DIR),'static'),)
-
-
+ 
 MEDIA_URL = 'media/'
-STATICFILES_DIRS = (os.path.join(os.path.dirname(BASE_DIR),'media'),)
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
