@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block titulo %}LOGIN{% endblock titulo %}
+{% block titulo %}Login{% endblock titulo %}
 {% block contenido %}
     <form method="POST">{% csrf_token %}
         {% if messages %}
@@ -9,6 +9,6 @@
         {% endif %}
         <input type="text" name="username" placeholder="Username">
         <input type="password" name="password" placeholder="Password">
-        <button type="submit">LOGIN</button>
+        <button type="submit">Login</button>
     </form>
 {% endblock %}

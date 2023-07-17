@@ -19,13 +19,13 @@ from django.urls import path, include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-
+ 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.Home, name='home'),
+    path('', views.Home, name= 'home'),
     path('nosotros/', views.Nosotros, name='nosotros'),
 
     #urls de aplicaciones
     path('noticias/', include('apps.noticias.urls')),
-    path('usuarios/', include('apps.usuarios.urls')),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('usuario/', include('apps.usuarios.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
