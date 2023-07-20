@@ -5,11 +5,12 @@
  
 {% block contenido %}
     <h2>Mi noticia detallada</h2>
-    <img src="{{noticia.imagen.url}}" width="50%">
-    <p>TITULO: {{noticia.titulo}}</p>
-    <p>FECHA: {{noticia.fecha_publicacion}}</p>
-    <p>CATEGORIA: {{noticia.categoria_noticia}}</p>
-    <p>CUERPO: {{noticia.contenido}}</p>
-    <br> 
+    <img src="{{ noticia.imagen.url }}" width="50%">
+    <p>TITULO: {{ noticia.titulo }}</p>
+    <p>FECHA: {{ noticia.fecha_publicacion }}</p>
+    <p>AUTOR: {{ noticia.author }}</p>
+    <p>CATEGORIA: {{ noticia.categoria_noticia }}</p>
+    <p>CUERPO: {{ noticia.contenido }}</p>
+    <br>
     <a href="{% url 'noticias:listar' %}">Volver</a>
 {% endblock contenido %}
