@@ -11,15 +11,15 @@
 <body class="contenedor">
     <div>
         <img src="{% static 'img/logo.jpg' %}" width="15%">
-        <a href="{% url 'home' %}">IR A HOME</a>
-        <a href="{% url 'nosotros' %}">IR A NOSOTROS</a>
-        <a href="{% url 'noticias:listar' %}">IR A NOTICIAS</a>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'nosotros' %}">Nosotros</a>
+        <a href="{% url 'noticias:listar' %}">Recetas</a>
         {% if user.is_authenticated %}
             <strong>Hola {{ user.username }}</strong>
-            <a href="{% url 'logout' %}">LOGOUT</a>
+            <a href="{% url 'logout' %}">Cerrar Sesion</a>
         {% else %}
-            <a href="{% url 'login' %}">LOGIN</a>
-	<a href="{% url 'registro' %}">REGISTRO</a>
+            <a href="{% url 'login' %}">Iniciar Sesion</a>
+	<a href="{% url 'registro' %}">Registrarse</a>
         {% endif %}
 
     </div>

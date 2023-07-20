@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block titulo %}NOTICIAS{% endblock titulo %}
+{% block titulo %}Recetas{% endblock titulo %}
 
 {% block contenido %}
-    <h2>Aca estan mis noticias</h2>
+    <h2>Aca estan mis recetas!</h2>
     <div class="submenu">
         <a href="{% url 'noticias:listar' %}">TODAS</a>
         {% for cat in categorias %}
