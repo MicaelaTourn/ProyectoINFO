@@ -52,7 +52,24 @@
                                 </li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
-                        
+                        </li>
+
+
+                        {% if user.is_authenticated and user.tipo_usuario == 'colaborador' %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Menu Colaborador
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'articulos:addarticulo' %}">Crear Articulo</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'articulos:addcategoria' %}">Crear Categoria</a></li>
+                                </ul>                                
+                            </li>
+                        {% endif %}                    
+
+
+
                     </ul>
                     <form class="d-flex">
                         <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

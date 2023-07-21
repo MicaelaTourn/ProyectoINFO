@@ -8,4 +8,5 @@ app_name = 'articulos'
 urlpatterns = [
     path('', views.listarArticulos, name='listar'),
     path('addArticulo/', views.AddArticulo, name='addarticulo'),
+    path('addCategoria/', views.addCategoria, name='addcategoria'),
 ]
