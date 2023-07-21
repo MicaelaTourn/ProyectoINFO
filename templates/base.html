@@ -8,6 +8,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -29,7 +30,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Link</a>
@@ -57,10 +58,11 @@
                         <button class="btn btn-outline-success" type="submit">Search</button> -->
                         {% if user.is_authenticated %}
                         <strong>Hola {{ user.username }}</strong>
-                        <a href="#">LOGOUT</a>
+                        <a class="btn btn-outline-dark" href="{% url 'logout' %}" role="button">Cerrar Sesion</a>
                         {% else %}
-                        <button class="btn btn-outline-success" type="submit">Login</button> 
-                        <button class="btn btn-outline-success" type="submit">Registro</button>                       
+                        <a class="btn btn-outline-dark" href="{% url 'registro' %}" role="button">Registrar</a>
+                        <a class="btn btn-outline-dark" href="{% url 'login' %}" role="button">Iniciar Sesion</a>
+                        
                         {% endif %}
 
                     </form>
