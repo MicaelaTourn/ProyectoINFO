@@ -1,9 +1,12 @@
-from django.shortcuts import render
-from .models import Articulo
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from .models import Articulo, Categoria, Comentario
+from .forms import ArticuloForm
 
 # Create your views here.
 
-""" Funcion para mostrar articulos """
+# Funcion para mostrar articulos
 def listarArticulos(request):
     articulos = Articulo.objects.all()
 
@@ -11,3 +14,19 @@ def listarArticulos(request):
         'articulos': articulos,        
     }
     return render(request, 'articulos/listarArticulos.html',contexto)
+
+
+# CREAR ARTICULO
+@login_required
+def AddArticulo(request):
+    if request.method == 'POST':
+        form = ArticuloForm(request.POST, request.FILES) ##REQUEST FILE PARA LAS IMAGENES
+        if form.is_valid():
+            articulo = form.save(commit=False)
+            articulo.usuario_articulo = request.user #autor de la noticia
+            articulo.save()
+            return redirect('home')
+    else:
+        form =ArticuloForm()
+    
+    return render(request, 'articulos/addArticulo.html', {'form': form})
