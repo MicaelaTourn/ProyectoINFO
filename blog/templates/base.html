@@ -11,7 +11,7 @@
 <body class="contenedor">
     <div>
         <img src="{% static 'img/logo.jpg' %}" width="15%">
-        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'index' %}">Home</a>
         <a href="{% url 'nosotros' %}">Nosotros</a>
         <a href="{% url 'noticias:listar' %}">Recetas</a>
         {% if user.is_authenticated %}
@@ -19,7 +19,7 @@
             <a href="{% url 'logout' %}">Cerrar Sesion</a>
         {% else %}
             <a href="{% url 'login' %}">Iniciar Sesion</a>
-	<a href="{% url 'registro' %}">Registrarse</a>
+	        <a href="{% url 'registro' %}">Registrarse</a>
         {% endif %}
 
     </div>
