@@ -28,4 +28,4 @@ urlpatterns = [
     path('usuarios/', include('apps.usuarios.urls')),
     path('articulos/',include('apps.articulos.urls')),
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
