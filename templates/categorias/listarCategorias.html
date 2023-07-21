@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}Categorias{% endblock titulo %}
+
+{% block contenido %}
+
+{% if categorias %}
+<div class="container">
+<h2>Listar Categorias:</h2>
+    {% for categoria in categorias %}
+        <div class="row justify-content-start">
+            <div class="col-md-6">
+                
+                <div class="mb-3">
+                    <ul>
+                        <li><p>{{ categoria.descripcion }}</p></li>
+                    </ul>
+                    
+                </div>                
+            </div>
+        </div>
+    {% endfor %}
+    <a name="addcategoria" class="btn btn-outline-dark" href="{% url 'articulos:addcategoria' %}" role="button">Crear Categoria</a>
+    
+    {% else %}
+    <h2>No hay Categorias</h>
+        {% endif %}
+
+</div>
+    {% endblock contenido %}

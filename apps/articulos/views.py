@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Articulo, Categoria, Comentario
 from .forms import ArticuloForm, CategoriaForm
 
-# Create your views here.
+# SECCION ARTICULOS
 
 # Funcion para mostrar articulos
 def listarArticulos(request):
@@ -14,6 +14,11 @@ def listarArticulos(request):
         'articulos': articulos,        
     }
     return render(request, 'articulos/listarArticulos.html',contexto)
+
+# DETALLE ARTICULO
+def detalleArticulo(request, pk):
+    articulo = get_object_or_404(Articulo, pk=pk)
+    comentarios = articulo.comentarios.all()
 
 
 # CREAR ARTICULO
@@ -27,9 +32,25 @@ def AddArticulo(request):
             articulo.save()
             return redirect('home')
     else:
-        form =ArticuloForm()
-    
+        form =ArticuloForm()    
     return render(request, 'articulos/addArticulo.html', {'form': form})
+
+
+
+
+
+
+
+# SECCION CATEGORIA
+
+# LISTAR CATEGORIAS
+def listarCategorias(request):
+    categorias = Categoria.objects.all()
+
+    contexto = {
+        'categorias': categorias,        
+    }
+    return render(request, 'categorias/listarCategorias.html',contexto)
 
 # CREAR CATEGORIA
 @login_required
@@ -43,4 +64,18 @@ def  addCategoria(request):
     else:
         form =CategoriaForm()
     
-    return render(request, 'articulos/addCategoria.html', {'form': form})
+    return render(request, 'categorias/addCategoria.html', {'form': form})
+
+
+# SECCION DE COMENTARIOS
+
+# AÑADIR COMENTARIOS
+@login_required
+def add_comment(request, articulo_id):
+    articulo = get_object_or_404(Articulo, id=articulo_id)
+    if request.method == 'POST':
+        text = request.POST.get('text')
+        usuario = request.user.username
+        # creacion de comentario
+        Comentario.objects.create(articulo_comentario=articulo, usuario_comentario=usuario, comentario=text)
+    return redirect('articulos:detalleArticulos', pk=articulo_id)
