@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+<h2>Mi Articulo detallado</h2>
+
+
+
+
+<img src="{{ articulo.imagen.url }}" width="50">
+<p>Titulo: {{ articulo.titulo }}</p>
+<p>Contenido Breve: {{ articulo.contenido_breve }}</p>
+<p>Contenido Completo: {{ articulo.contenido_completo }}</p>
+<p>Fecha Publicacion: {{ articulo.fecha_publicacion }}</p>
+<p>Categoria Articulo: {{ articulo.categoria_articulo }}</p>
+<p>Usuario Articulo: {{ articulo.usuario_articulo }}</p>
+<br>
+
+<h3>Comentarios</h3>
+{% for comentario in comentarios %}
+<p>{{ comentario.usuario_comentario }} - {{ comentario.fecha_publicacion }}</p>
+<p>{{ comentario.comentario }}</p>
+
+{% empty %}
+<p>No hay comentarios.</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+<h3>Añadir Comentario</h3>
+<form method="POST" action="{% url 'articulos:add_comentario' articulo.pk %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enviar</button>
+</form>
+{% else %}
+<p>Debe iniciar sesión para añadir un comentario</p>
+<a href="{% url 'login' %}">LOGIN</a>
+{% endif %}
+
+<br><br>
+<a href="{% url 'articulos:listarArticulos' %}">VOLVER</a>
+{% endblock contenido %}

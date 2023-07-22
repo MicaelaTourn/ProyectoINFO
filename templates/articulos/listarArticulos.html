@@ -9,7 +9,7 @@
   {% if articulos %}
     {% for articulo in articulos %}
     <img src="{{ articulo.imagen.url }}" width="50">
-    <p>Titulo: {{ articulo.titulo }}</p>
+    <p><a href="{% url 'articulos:detalleArticulos' articulo.pk %}">Titulo: {{ articulo.titulo }}</a></p>
     <p>Contenido Breve: {{ articulo.contenido_breve }}</p>
     <p>Contenido Completo: {{ articulo.contenido_completo }}</p>
     <p>Fecha Publicacion: {{ articulo.fecha_publicacion }}</p>
