@@ -87,8 +87,6 @@
 
                     </ul>
                     <form class="d-flex">
-                        <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button> -->
                         {% if user.is_authenticated %}
                         <strong>Hola {{ user.username }}</strong>
                         <a class="btn btn-outline-dark" href="{% url 'logout' %}" role="button">Cerrar Sesion</a>

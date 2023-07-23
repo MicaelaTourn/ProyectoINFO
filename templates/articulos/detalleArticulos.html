@@ -21,7 +21,6 @@
     role="button">Editar</a>
 <form method="POST" action="{% url 'articulos:detalleArticulos' pk=articulo.pk %}">
     {% csrf_token %}
-    <!-- <button type="submit" name="delete_noticia">BORRAR</button> -->
 </form>
 <a name="" id="" class="btn btn-outline-dark" href="{% url 'articulos:delete_articulo' pk=articulo.pk %}"
     role="button">Borrar</a>
@@ -32,23 +31,31 @@
 {% for comentario in comentarios %}
 <p>{{ comentario.usuario_comentario }} - {{ comentario.fecha_publicacion }}</p>
 <p>{{ comentario.comentario }}</p>
+<!-- Si el usuario es colaborador o es el que hizo el comentario se le habilita para poder borrar -->
+{% if comentario.usuario_comentario == user.username or user.tipo_usuario == 'colaborador' %}
+<a class="btn btn-outline-dark" type="submit" href="{% url 'articulos:edit_comentario' comentario_id=comentario.pk %}">Editar Comentario</a>
+{% endif %}
+
 
 {% empty %}
 <p>No hay comentarios.</p>
 {% endfor %}
 
 {% if user.is_authenticated %}
-<h3>Añadir Comentario</h3>
-<form method="POST" action="{% url 'articulos:add_comentario' articulo.pk %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Enviar</button>
-</form>
+    <h3>Añadir Comentario</h3>
+    <form method="POST" action="{% url 'articulos:add_comentario' articulo.pk %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <a class="btn btn-outline-dark" type="submit" >ENVIAR</a>
+        <!-- <button type="submit">Enviar</button> -->
+    </form>
 {% else %}
-<p>Debe iniciar sesión para añadir un comentario</p>
-<a href="{% url 'login' %}">LOGIN</a>
+    <p>Debe iniciar sesión para añadir un comentario</p>
+    <a name="" id="" class="btn btn-outline-dark" href="{% url 'login' %}" role="button">Iniciar Sesion</a>
 {% endif %}
+    <br><br>
+    <a name="" id="" class="btn btn-outline-dark" href="{% url 'articulos:listarArticulos' %}" role="button">Volver</a>
 
-<br><br>
-<a href="{% url 'articulos:listarArticulos' %}">VOLVER</a>
+
+
 {% endblock contenido %}

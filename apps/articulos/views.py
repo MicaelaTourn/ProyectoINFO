@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Articulo, Categoria, Comentario
 from .forms import ArticuloForm, CategoriaForm, ComentarioForm
 from django.http import HttpResponseForbidden
+from django.contrib import messages
 """ --------------------------------------------------
                    ARTICULOS
 -------------------------------------------------- """
@@ -152,3 +153,26 @@ def add_comentario(request, articulo_id):
         Comentario.objects.create(articulo_comentario=articulo, usuario_comentario=usuario, comentario=text)
     return redirect('articulos:detalleArticulos', pk=articulo_id)
 
+# EDITAR COMENTARIOS
+@login_required
+def edit_comentario(request, comentario_id):
+    comentario = get_object_or_404(Comentario, id=comentario_id)
+
+    #mensaje de error si no sos el autor
+    if request.user.tipo_usuario == 'publico' and comentario.usuario_comentario != request.user.username:
+        messages.error(request, 'No tienes permisos para editar este comentario.')
+        return redirect('articulos:detalleArticulos', pk=comentario.articulo_comentario.pk)
+
+    if request.method == 'POST':
+        form = ComentarioForm(request.POST, instance=comentario)
+        if form.is_valid():
+            form.save()
+            return redirect('articulos:detalleArticulos', pk=comentario.articulo_comentario.pk)
+    else:
+        form = ComentarioForm(instance=comentario)
+
+    contexto = {
+        'form': form,
+        'comment': comentario,
+    }
+    return render(request, 'articulos/edit_comentario.html', contexto)
