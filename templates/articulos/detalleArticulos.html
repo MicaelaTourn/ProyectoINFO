@@ -23,6 +23,8 @@
     {% csrf_token %}
     <!-- <button type="submit" name="delete_noticia">BORRAR</button> -->
 </form>
+<a name="" id="" class="btn btn-outline-dark" href="{% url 'articulos:delete_articulo' pk=articulo.pk %}"
+    role="button">Borrar</a>
 {% endif %}
 <br>
 

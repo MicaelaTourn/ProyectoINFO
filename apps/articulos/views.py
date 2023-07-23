@@ -44,7 +44,7 @@ def listarArticulos(request):
         'categorias': Categoria.objects.all(),    
     }
     return render(request, 'articulos/listarArticulos.html',contexto)
-
+# Busca articulo seleccionado
 def detalleArticulos(request, pk):
     articulo = get_object_or_404 (Articulo, pk=pk)
     comentarios = articulo.comentarios.all()
@@ -66,7 +66,7 @@ def detalleArticulos(request, pk):
         'form': form,
     }
     return render(request, 'articulos/detalleArticulos.html', contexto)
-
+# Editar articulo
 @login_required
 def editArticulo(request, pk):
     articulo = get_object_or_404(Articulo, pk=pk)
@@ -87,7 +87,13 @@ def editArticulo(request, pk):
         'form': form,
     }
     return render(request, 'articulos/edit_articulo.html', contexto)
-            
+# Eliminar articulo         
+@login_required
+def delete_articulo(request, pk):
+    articulo = get_object_or_404(Articulo, id=pk)
+    if request.user.tipo_usuario == 'colaborador':
+        articulo.delete()
+    return redirect('articulos:listarArticulos')
 # CREAR ARTICULO
 @login_required
 def AddArticulo(request):
