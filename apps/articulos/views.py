@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import Articulo, Categoria, Comentario
 from .forms import ArticuloForm, CategoriaForm, ComentarioForm
-
+from django.http import HttpResponseForbidden
 """ --------------------------------------------------
                    ARTICULOS
 -------------------------------------------------- """
@@ -67,6 +67,26 @@ def detalleArticulos(request, pk):
     }
     return render(request, 'articulos/detalleArticulos.html', contexto)
 
+@login_required
+def editArticulo(request, pk):
+    articulo = get_object_or_404(Articulo, pk=pk)
+
+    # Solo el autor puede editar la noticia
+    if articulo.usuario_articulo != request.user:
+        return HttpResponseForbidden("No tenes permiso para editar esta noticia.")
+
+    if request.method == 'POST':
+        form = ArticuloForm(request.POST, request.FILES, instance=articulo)
+        if form.is_valid():
+            form.save()
+            return redirect('articulos:detalleArticulos', pk=pk)
+    else:
+        form = ArticuloForm(instance=articulo)
+
+    contexto = {
+        'form': form,
+    }
+    return render(request, 'articulos/edit_articulo.html', contexto)
             
 # CREAR ARTICULO
 @login_required

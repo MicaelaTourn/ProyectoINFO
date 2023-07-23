@@ -7,6 +7,7 @@
 
 
 
+
 <img src="{{ articulo.imagen.url }}" width="50">
 <p>Titulo: {{ articulo.titulo }}</p>
 <p>Contenido Breve: {{ articulo.contenido_breve }}</p>
@@ -14,6 +15,15 @@
 <p>Fecha Publicacion: {{ articulo.fecha_publicacion }}</p>
 <p>Categoria Articulo: {{ articulo.categoria_articulo }}</p>
 <p>Usuario Articulo: {{ articulo.usuario_articulo }}</p>
+<br>
+{% if user.is_authenticated and user.tipo_usuario == 'colaborador' %}
+<a name="" id="" class="btn btn-outline-dark" href="{% url 'articulos:editArticulo' pk=articulo.pk %}"
+    role="button">Editar</a>
+<form method="POST" action="{% url 'articulos:detalleArticulos' pk=articulo.pk %}">
+    {% csrf_token %}
+    <!-- <button type="submit" name="delete_noticia">BORRAR</button> -->
+</form>
+{% endif %}
 <br>
 
 <h3>Comentarios</h3>
