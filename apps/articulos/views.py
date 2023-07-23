@@ -4,22 +4,50 @@ from django.contrib.auth.decorators import login_required
 from .models import Articulo, Categoria, Comentario
 from .forms import ArticuloForm, CategoriaForm, ComentarioForm
 
-# SECCION ARTICULOS
-
+""" --------------------------------------------------
+                   ARTICULOS
+-------------------------------------------------- """
 # Funcion para mostrar articulos
 def listarArticulos(request):
     articulos = Articulo.objects.all()
 
+    # FILTRAR POR CATEGORIA
+    categoria = request.GET.get('categoria')
+    if categoria:
+        articulos =  articulos.filter(categoria_articulo=categoria)
+
+    # FILTRAR POR ANTIGUEDAD
+    antiguedad_asc = request.GET.get('antiguedad_asc')
+    if antiguedad_asc:
+        articulos= articulos.order_by('fecha_publicacion')
+
+    # FILTRAR POR ANTIGUEDAD DESCENDENTE
+    antiguedad_desc = request.GET.get('antiguedad_desc')
+    if antiguedad_desc:
+        articulos = articulos.order_by('-fecha_publicacion')
+    
+    # FILTRAR POR ORDEN ALFABETICO ASCENDENTE
+    orden_asc = request.GET.get('orden_asc')
+    if orden_asc:
+        articulos = articulos.order_by('titulo')
+
+    # FILTRAR POR ORDEN ALFABETICO DESCENDENTE
+    orden_desc = request.GET.get('orden_desc')
+    if orden_desc:
+        articulos = articulos.order_by('-titulo')
+    
+
+
+
     contexto = {
-        'articulos': articulos,        
+        'articulos': articulos,    
+        'categorias': Categoria.objects.all(),    
     }
     return render(request, 'articulos/listarArticulos.html',contexto)
 
 def detalleArticulos(request, pk):
     articulo = get_object_or_404 (Articulo, pk=pk)
     comentarios = articulo.comentarios.all()
-
-
 
     # COMENTARIO
     if request.method == 'POST' and 'add_comentario' in request.POST:
@@ -40,8 +68,6 @@ def detalleArticulos(request, pk):
     return render(request, 'articulos/detalleArticulos.html', contexto)
 
             
-
-
 # CREAR ARTICULO
 @login_required
 def AddArticulo(request):
@@ -57,7 +83,9 @@ def AddArticulo(request):
     return render(request, 'articulos/addArticulo.html', {'form': form})
 
 
-# SECCION CATEGORIA
+""" --------------------------------------------------
+                   CATEGORIAS
+-------------------------------------------------- """
 
 # LISTAR CATEGORIAS
 def listarCategorias(request):
@@ -83,7 +111,9 @@ def  addCategoria(request):
     return render(request, 'categorias/addCategoria.html', {'form': form})
 
 
-# SECCION DE COMENTARIOS
+""" --------------------------------------------------
+                   COMENTARIOS
+-------------------------------------------------- """
 
 # AÑADIR COMENTARIOS
 @login_required
