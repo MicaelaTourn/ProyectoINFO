@@ -17,13 +17,11 @@
 <p>Usuario Articulo: {{ articulo.usuario_articulo }}</p>
 <br>
 {% if user.is_authenticated and user.tipo_usuario == 'colaborador' %}
-<a name="" id="" class="btn btn-outline-dark" href="{% url 'articulos:editArticulo' pk=articulo.pk %}"
-    role="button">Editar</a>
+<a class="btn btn-outline-dark" href="{% url 'articulos:editArticulo' pk=articulo.pk %}">Editar Articulo</a>
 <form method="POST" action="{% url 'articulos:detalleArticulos' pk=articulo.pk %}">
     {% csrf_token %}
 </form>
-<a name="" id="" class="btn btn-outline-dark" href="{% url 'articulos:delete_articulo' pk=articulo.pk %}"
-    role="button">Borrar</a>
+<a class="btn btn-outline-dark" href="{% url 'articulos:delete_articulo' pk=articulo.pk %}">Borrar Articulo</a>
 {% endif %}
 <br>
 
@@ -34,6 +32,7 @@
 <!-- Si el usuario es colaborador o es el que hizo el comentario se le habilita para poder borrar -->
 {% if comentario.usuario_comentario == user.username or user.tipo_usuario == 'colaborador' %}
 <a class="btn btn-outline-dark" type="submit" href="{% url 'articulos:edit_comentario' comentario_id=comentario.pk %}">Editar Comentario</a>
+<a class="btn btn-outline-dark" type="submit" href="{% url 'articulos:delete_comentario' comentario_id=comentario.pk %}">Borrar Comentario</a>
 {% endif %}
 
 
@@ -46,7 +45,7 @@
     <form method="POST" action="{% url 'articulos:add_comentario' articulo.pk %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <a class="btn btn-outline-dark" type="submit" >ENVIAR</a>
+        <button type="submit" class="btn btn-outline-dark">ENVIAR</button>
         <!-- <button type="submit">Enviar</button> -->
     </form>
 {% else %}

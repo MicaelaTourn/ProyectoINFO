@@ -73,7 +73,7 @@ def editArticulo(request, pk):
     articulo = get_object_or_404(Articulo, pk=pk)
 
     # Solo el autor puede editar la noticia
-    if articulo.usuario_articulo != request.user:
+    if request.user.tipo_usuario !='colaborador':
         return HttpResponseForbidden("No tenes permiso para editar esta noticia.")
 
     if request.method == 'POST':
@@ -176,3 +176,11 @@ def edit_comentario(request, comentario_id):
         'comment': comentario,
     }
     return render(request, 'articulos/edit_comentario.html', contexto)
+
+# BORRAR COMENTARIO
+@login_required
+def delete_comentario(request, comentario_id):
+    comentario = get_object_or_404(Comentario, id=comentario_id)
+    if comentario.usuario_comentario == request.user.username or request.user.tipo_usuario == 'colaborador':
+        comentario.delete()
+    return redirect('articulos:detalleArticulos', pk=comentario.articulo_comentario.pk)

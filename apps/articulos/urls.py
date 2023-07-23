@@ -18,4 +18,5 @@ urlpatterns = [
     # COMENTARIOS URL
     path('comentario/add/<int:articulo_id>/', views.add_comentario, name='add_comentario'),
     path('comentario/edit/<int:comentario_id>/', views.edit_comentario, name='edit_comentario'),
+    path('comentario/delete/<int:comentario_id>/', views.delete_comentario, name='delete_comentario'),
 ]
