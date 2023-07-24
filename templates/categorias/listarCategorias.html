@@ -15,6 +15,7 @@
                 <div class="mb-3">
                     <ul>
                         <li><p>{{ categoria.descripcion }}</p></li>
+                        <a name="addcategoria" class="btn btn-outline-dark" href="{% url 'articulos:edit_categoria' categoria.pk %}" role="button">Editar categoria</a>
                     </ul>
                     
                 </div>                

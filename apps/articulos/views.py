@@ -8,7 +8,7 @@ from django.contrib import messages
 """ --------------------------------------------------
                    ARTICULOS
 -------------------------------------------------- """
-# Funcion para mostrar articulos
+# MUESTRA TODOS LOS ARTICULOS
 def listarArticulos(request):
     articulos = Articulo.objects.all()
 
@@ -45,7 +45,8 @@ def listarArticulos(request):
         'categorias': Categoria.objects.all(),    
     }
     return render(request, 'articulos/listarArticulos.html',contexto)
-# Busca articulo seleccionado
+
+# BUSCAR ARTICULO SELECCIONADO
 def detalleArticulos(request, pk):
     articulo = get_object_or_404 (Articulo, pk=pk)
     comentarios = articulo.comentarios.all()
@@ -67,7 +68,8 @@ def detalleArticulos(request, pk):
         'form': form,
     }
     return render(request, 'articulos/detalleArticulos.html', contexto)
-# Editar articulo
+
+# EDITAR ARTICULO
 @login_required
 def editArticulo(request, pk):
     articulo = get_object_or_404(Articulo, pk=pk)
@@ -88,13 +90,15 @@ def editArticulo(request, pk):
         'form': form,
     }
     return render(request, 'articulos/edit_articulo.html', contexto)
-# Eliminar articulo         
+
+# ELIMINAR ARTICULO         
 @login_required
 def delete_articulo(request, pk):
     articulo = get_object_or_404(Articulo, id=pk)
     if request.user.tipo_usuario == 'colaborador':
         articulo.delete()
     return redirect('articulos:listarArticulos')
+
 # CREAR ARTICULO
 @login_required
 def AddArticulo(request):
@@ -136,6 +140,28 @@ def  addCategoria(request):
         form =CategoriaForm()
     
     return render(request, 'categorias/addCategoria.html', {'form': form})
+
+# EDITAR CATEGORIA
+@login_required
+def edit_categoria(request, categoria_id):
+    categoria = get_object_or_404(Categoria, id=categoria_id)
+
+    #mensaje de error si no sos el autor
+    if request.user.tipo_usuario == 'publico':
+        messages.error(request, 'No tienes permisos para editar este comentario.')        
+
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST, instance=categoria)
+        if form.is_valid():
+            form.save()
+            return redirect('articulos:listarCategorias')
+    else:
+        form = CategoriaForm(instance=categoria)
+
+    contexto = {
+        'form': form,        
+    }
+    return render(request, 'categorias/edit_categoria.html', contexto)
 
 
 """ --------------------------------------------------

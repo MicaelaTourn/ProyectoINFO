@@ -15,6 +15,7 @@ urlpatterns = [
     # CATEGORIAS URL
     path('addCategoria/', views.addCategoria, name='addcategoria'),
     path('categorias/', views.listarCategorias, name='listarCategorias'),
+    path('categorias/edit/<int:categoria_id>/', views.edit_categoria, name='edit_categoria'),
     # COMENTARIOS URL
     path('comentario/add/<int:articulo_id>/', views.add_comentario, name='add_comentario'),
     path('comentario/edit/<int:comentario_id>/', views.edit_comentario, name='edit_comentario'),
