@@ -149,7 +149,7 @@ def edit_categoria(request, categoria_id):
     #mensaje de error si no sos el autor
     if request.user.tipo_usuario == 'publico':
         messages.error(request, 'No tienes permisos para editar este comentario.')        
-
+        return redirect('articulos:listarCategorias')
     if request.method == 'POST':
         form = CategoriaForm(request.POST, instance=categoria)
         if form.is_valid():
@@ -163,6 +163,13 @@ def edit_categoria(request, categoria_id):
     }
     return render(request, 'categorias/edit_categoria.html', contexto)
 
+# BORRAR CATEGORIA
+@login_required
+def delete_categoria(request, categoria_id):
+    categoria = get_object_or_404(Categoria, id=categoria_id)
+    if request.user.tipo_usuario == 'colaborador':
+        categoria.delete()
+    return redirect('articulos:listarCategorias')
 
 """ --------------------------------------------------
                    COMENTARIOS
