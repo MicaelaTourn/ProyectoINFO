@@ -45,7 +45,7 @@
                                 Categorias
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{% url 'articulos:listarArticulos' %}">TODAS</a></li>
+                                <li><a class="dropdown-item" href="{% url 'articulos:listarArticulos' %}">VER TODAS</a></li>
                                 <hr class="dropdown-divider">
                                 {% for cat in categorias  %}
                                     <li><a class="dropdown-item" href="?categoria={{ cat.pk }}">{{ cat.descripcion }}</a></li>
@@ -78,7 +78,7 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="{% url 'articulos:addarticulo' %}">Crear Articulo</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'articulos:listarCategorias' %}">Mostrar Categoria</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'articulos:listarCategorias' %}">Categorias</a></li>
                                 </ul>                                
                             </li>
                         {% endif %}                    

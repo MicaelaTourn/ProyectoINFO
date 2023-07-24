@@ -13,7 +13,12 @@
     <p>Contenido Breve: {{ articulo.contenido_breve }}</p>
     <p>Contenido Completo: {{ articulo.contenido_completo }}</p>
     <p>Fecha Publicacion: {{ articulo.fecha_publicacion }}</p>
-    <p>Categoria Articulo: {{ articulo.categoria_articulo }}</p>
+    {% if articulo.categoria_articulo is null %}
+      <p>Categoria Articulo: 'Sin categoria'</p>
+    {% else %}
+      <p>Categoria Articulo: {{ articulo.categoria_articulo }}</p>
+    {% endif %}
+    
     <p>Usuario Articulo: {{ articulo.usuario_articulo }}</p>
     {% endfor %}
   {% else %}

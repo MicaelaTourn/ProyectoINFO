@@ -135,7 +135,7 @@ def  addCategoria(request):
         if form.is_valid():
             categoria = form.save(commit=False)
             categoria.save()
-            return redirect('home')
+            return redirect('articulos:listarCategorias')
     else:
         form =CategoriaForm()
     
@@ -168,7 +168,7 @@ def edit_categoria(request, categoria_id):
 def delete_categoria(request, categoria_id):
     categoria = get_object_or_404(Categoria, id=categoria_id)
     if request.user.tipo_usuario == 'colaborador':
-        categoria.delete()
+        categoria.delete()        
     return redirect('articulos:listarCategorias')
 
 """ --------------------------------------------------
