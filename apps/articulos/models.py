@@ -16,7 +16,7 @@ class Articulo(models.Model):
     contenido_completo = models.TextField()
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     imagen = models.ImageField(upload_to='articulos')
-    categoria_articulo = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    categoria_articulo = models.ForeignKey(Categoria, on_delete=models.SET_NULL,null=True,default='Sin categoría')
     usuario_articulo = models.ForeignKey(Usuario, on_delete=models.CASCADE, default=Usuario.objects.get(is_superuser=True).pk)
 
     def __str__(self):
