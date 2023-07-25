@@ -8,7 +8,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -17,8 +19,7 @@
 </head>
 
 <body>
-    <header>
-        <!-- navbar -->
+  <!--   <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'home' %}">Blog | Cocina</a>
@@ -29,7 +30,6 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'articulos:listarArticulos' %}">Articulos</a>
                         </li>
@@ -52,7 +52,6 @@
                                 {% endfor %}
                             </ul>
                         </li>
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -69,7 +68,6 @@
                                 <hr class="dropdown-divider">
                             </ul>
                         </li>
-                        
                         {% if user.is_authenticated and user.tipo_usuario == 'colaborador' %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -83,8 +81,6 @@
                             </li>
                         {% endif %}                    
 
-
-
                     </ul>
                     <form class="d-flex">
                         {% if user.is_authenticated %}
@@ -93,23 +89,114 @@
                         {% else %}
                         <a class="btn btn-outline-dark" href="{% url 'registro' %}" role="button">Registrar</a>
                         <a class="btn btn-outline-dark" href="{% url 'login' %}" role="button">Iniciar Sesion</a>
-                        
                         {% endif %}
-
                     </form>
                 </div>
             </div>
         </nav>
+    </header> -->
 
-    </header>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">Blog | Cocina</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'articulos:listarArticulos' %}">Articulos</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Filtros
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li class="dropdown-item"><strong>Por fecha:</strong></li>
+                        <li><a class="dropdown-item" href="?antiguedad_asc=1">ASCENDENTE</a></li>
+                        <li><a class="dropdown-item" href="?antiguedad_desc=1">DESCENDENTE</a></li>
+                        <hr class="dropdown-divider">
+                        <li class="dropdown-item"><strong>Por Título:</strong></li>
+                        <li><a class="dropdown-item" href="?orden_asc=1">ASCENDENTE</a></li>
+                        <li><a class="dropdown-item" href="?orden_desc=1">DESCENDENTE</a></li>
+                        <hr class="dropdown-divider">
+                    </ul>
+                </li>           
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Categorias
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li> <a class="dropdown-item" href="{% url 'articulos:listarArticulos' %}"><strong>VER TODAS</strong></a></li>
+                        <hr class="dropdown-divider">
+                        {% for cat in categorias %}
+                        <li><a class="dropdown-item" href="?categoria={{ cat.pk }}">{{ cat.descripcion }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% if user.is_authenticated and user.tipo_usuario == 'colaborador' %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Menu Colaborador
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'articulos:addarticulo' %}">Crear Articulo</a></li>
+                        <li><a class="dropdown-item" href="{% url 'articulos:listarCategorias' %}">Categorias</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'acerca_de' %}">Acerca de</a></li>
+            
+                <form class="d-flex">
+                    {% if user.is_authenticated %}
+                    
+                    <button class="btn btn-outline-light" type="button"><strong>{{ user.username }}</strong></button>
+                    <!-- <li class="nav-item"><a href="#">Hola<strong> {{ user.username }}</strong></a></li> -->
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><strong>Cerra Sesión</strong></a></li>
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}"><strong>Registrarse</strong></a></li>
+                    <li class="nav-item"><a class="nav-link " href="{% url 'login' %}"><strong>Iniciar Sesión</strong></a></li>
+                    
+                    
+                    {% endif %}
+                </form>
+                
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+
     <main>
 
         {% block contenido %}
         {% endblock contenido %}
 
     </main>
-    <footer>
-        <!-- place footer here -->
+    <!-- Footer-->
+    <footer class="bg-dark py-4 mt-auto">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                <div class="col-auto">
+                    <div class="small m-0 text-white">Copyright &copy; Your Website 2023</div>
+                </div>
+                <div class="col-auto">
+                    <a class="link-light small" href="#!">Privacy</a>
+                    <span class="text-white mx-1">&middot;</span>
+                    <a class="link-light small" href="#!">Terms</a>
+                    <span class="text-white mx-1">&middot;</span>
+                    <a class="link-light small" href="#!">Contact</a>
+                </div>
+            </div>
+        </div>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
