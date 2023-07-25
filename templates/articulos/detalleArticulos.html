@@ -15,6 +15,7 @@
                         <!-- Post title-->
                         <h1 class="fw-bolder mb-1">{{ articulo.titulo }}</h1>
                         <!-- Post meta content-->
+                        <div class="text-muted fst-italic mb-2">{{ articulo.usuario_articulo.first_name}}, {{ articulo.usuario_articulo.last_name}}</div>
                         <div class="text-muted fst-italic mb-2">{{ articulo.fecha_publicacion }}</div>
                         <!-- Post categories-->
                         <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ articulo.categoria_articulo }}</a>
@@ -30,61 +31,61 @@
                 </article>
 
                 {% if user.is_authenticated and user.tipo_usuario == 'colaborador' %}
-                <a class="btn btn-outline-dark" href="{% url 'articulos:editArticulo' pk=articulo.pk %}">Editar Articulo</a>
+                <a class="btn btn-outline-primary" href="{% url 'articulos:editArticulo' pk=articulo.pk %}">Editar Articulo</a>
+                <a class="btn btn-outline-danger" href="{% url 'articulos:delete_articulo' pk=articulo.pk %}">Borrar Articulo</a>
                 <form method="POST" action="{% url 'articulos:detalleArticulos' pk=articulo.pk %}">
                     {% csrf_token %}
-                </form>
-                <a class="btn btn-outline-dark" href="{% url 'articulos:delete_articulo' pk=articulo.pk %}">Borrar Articulo</a>
+                </form>                
                 {% endif %}
 
+
                 <!-- seccion de comentarios-->
+
                 <section>
                     <div class="card bg-light">
                         <div class="card-body">
-                            <!-- Comentario form-->
-                            <!-- <form class="mb-4"><textarea class="form-control" rows="3"
-                                    placeholder="Ingrese su comentario..."></textarea></form>  -->
+                            <!-- Comentario form -->
+                            {% if user.is_authenticated %}                         
 
-                            <!-- SI EL USUARIO ESTA LOGUEADO QUE SE HABILITE EL BOTON DE AÑADIR COMENTARIO -->
-                            {% if user.is_authenticated %}
-                            
                             <form method="POST" action="{% url 'articulos:add_comentario' articulo.pk %}">
                                 {% csrf_token %}
                                 {{ form.as_p }}
-                                <button type="submit" class="btn btn-outline-dark">ENVIAR</button>
-                                <!-- <button type="submit">Enviar</button> -->
-                            </form>                            
+                                <button type="submit" class="btn btn-outline-success">ENVIAR</button>
+                            </form>
                             <br>
                             {% else %}
-                            <p>Debe iniciar sesión para añadir un comentario</p>
-                            <a name="" id="" class="btn btn-outline-dark" href="{% url 'login' %}" role="button">Iniciar Sesion</a>
+                            <p>Debe iniciar sesión para añadir un comentario.</p>
+                            <a href="{% url 'login' %}" class="btn btn-outline-dark">Iniciar Sesión</a>
                             {% endif %}
-
-                            <!-- comentario-->
+                
+                            <!-- Comentarios -->
                             <h4>Comentarios:</h4>
+                            
                             {% for comentario in comentarios %}
-                            <div class="d-flex">                                
-                                    <div class="ms-3">
-                                        <div class="fw-bold">{{ comentario.usuario_comentario }}</div>
-                                        {{ comentario.comentario }}                                        
-                                    </div>                                    
+                            <hr>
+                            <div class="d-flex">
+                                <div class="ms-3">
+                                    <div class="fw-bold">{{ comentario.usuario_comentario }}</div>
+                                    {{ comentario.comentario }}
+                                </div>                                
                             </div>
-                            <!-- SI EL USUARIO ES EL AUTOR DEL COMENTARIO O COLABORADOR SE LE HABILITA EDITAR Y BORRAR COMENTARIO -->
                             {% if comentario.usuario_comentario == user.username or user.tipo_usuario == 'colaborador' %}
-                            <a class="btn btn-outline-dark" type="submit"
-                                href="{% url 'articulos:edit_comentario' comentario_id=comentario.pk %}">Editar</a>
-                            <a class="btn btn-outline-dark" type="submit"
-                                href="{% url 'articulos:delete_comentario' comentario_id=comentario.pk %}">Borrar</a>
+                            <!-- Si el usuario es el autor del comentario o un colaborador, se le habilita editar y borrar el comentario -->
+                            <a href="{% url 'articulos:edit_comentario' comentario_id=comentario.pk %}"
+                                class="btn btn-outline-primary ms-2">Editar</a>
+                            <a href="{% url 'articulos:delete_comentario' comentario_id=comentario.pk %}"
+                                class="btn btn-outline-danger ms-2">Borrar</a>
                             {% endif %}
                             {% endfor %}
-                            
                         </div>
                     </div>
-                </section>
+                </section>   
+                <a name="" id="" class="btn btn-outline-dark" href="{% url 'articulos:listarArticulos' %}" role="button">Volver</a>
+
             </div>
         </div>
     </div>
-    <a name="" id="" class="btn btn-outline-dark" href="{% url 'articulos:listarArticulos' %}" role="button">Volver</a>
+    
 </section>
 
 
@@ -93,7 +94,7 @@
 <!-- CODIGO VIEJO -->
 
 
-<img src="{{ articulo.imagen.url }}" width="50">
+<!-- <img src="{{ articulo.imagen.url }}" width="50">
 <p>Titulo: {{ articulo.titulo }}</p>
 <p>Contenido Breve: {{ articulo.contenido_breve }}</p>
 <p>Contenido Completo: {{ articulo.contenido_completo }}</p>
@@ -113,15 +114,16 @@
 <h3>Comentarios</h3>
 {% for comentario in comentarios %}
 <p>{{ comentario.usuario_comentario }} - {{ comentario.fecha_publicacion }}</p>
-<p>{{ comentario.comentario }}</p>
+<p>{{ comentario.comentario }}</p> -->
+
 <!-- Si el usuario es colaborador o es el que hizo el comentario se le habilita para poder borrar -->
-{% if comentario.usuario_comentario == user.username or user.tipo_usuario == 'colaborador' %}
+<!-- {% if comentario.usuario_comentario == user.username or user.tipo_usuario == 'colaborador' %}
 <a class="btn btn-outline-dark" type="submit" href="{% url 'articulos:edit_comentario' comentario_id=comentario.pk %}">Editar Comentario</a>
 <a class="btn btn-outline-dark" type="submit" href="{% url 'articulos:delete_comentario' comentario_id=comentario.pk %}">Borrar Comentario</a>
-{% endif %}
+{% endif %} -->
 
 
-{% empty %}
+<!-- {% empty %}
 <p>No hay comentarios.</p>
 {% endfor %}
 
@@ -130,9 +132,9 @@
     <form method="POST" action="{% url 'articulos:add_comentario' articulo.pk %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-outline-dark">ENVIAR</button>
+        <button type="submit" class="btn btn-outline-dark">ENVIAR</button> -->
         <!-- <button type="submit">Enviar</button> -->
-    </form>
+   <!--  </form>
 {% else %}
     <p>Debe iniciar sesión para añadir un comentario</p>
     <a name="" id="" class="btn btn-outline-dark" href="{% url 'login' %}" role="button">Iniciar Sesion</a>
@@ -140,7 +142,7 @@
     <br><br>
     <a name="" id="" class="btn btn-outline-dark" href="{% url 'articulos:listarArticulos' %}" role="button">Volver</a>
 
-
+ -->
 
 
 
