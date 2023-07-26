@@ -10,18 +10,12 @@ class RegistroForm(UserCreationForm):
         label='Contraseña', widget=forms.PasswordInput, required=True)
     password2 = forms.CharField(
         label='Confirmar Contraseña', widget=forms.PasswordInput, required=True)
-    
-    """ Tipo de usuario """
-    TIPOS_USUARIO_CHOICES = (('publico', 'Público'),('colaborador', 'Colaborador'),)
-    tipo_usuario = forms.ChoiceField(label='Tipo de Usuario',choices=TIPOS_USUARIO_CHOICES,widget=forms.RadioSelect,required=True, )
-
 
     class Meta:
         model = Usuario
         fields = [
             'first_name',
             'last_name',
-            'tipo_usuario',
             'username',
             'email',
             'password1',
