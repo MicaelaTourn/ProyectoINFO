@@ -15,28 +15,33 @@
                         <!-- Post title-->
                         <h1 class="fw-bolder mb-1">{{ articulo.titulo }}</h1>
                         <!-- Post meta content-->
-                        <div class="text-muted fst-italic mb-2">{{ articulo.usuario_articulo.first_name}}, {{ articulo.usuario_articulo.last_name}}</div>
+                        <div class="text-muted fst-italic mb-2">{{ articulo.usuario_articulo.first_name}}, {{articulo.usuario_articulo.last_name}}</div>
                         <div class="text-muted fst-italic mb-2">{{ articulo.fecha_publicacion }}</div>
                         <!-- Post categories-->
-                        <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ articulo.categoria_articulo }}</a>
+                        <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{articulo.categoria_articulo }}</a>
                     </header>
                     <!-- Preview image figure-->
-                    <figure class="mb-4"><img class="img-fluid rounded"
-                            src="{{ articulo.imagen.url }}" alt="" /></figure>
+                    <figure class="mb-4"><img class="img-fluid rounded" src="{{ articulo.imagen.url }}" alt="" />
+                    </figure>
                     <!-- Post content-->
                     <section class="mb-5">
-                        <p class="fs-5 mb-4">{{ articulo.contenido_completo }}</p>
+                        <p class="fs-5 mb-4">{{ articulo.contenido_completo }}</p> 
+                        {% if user.is_authenticated and user.tipo_usuario == 'colaborador' %}
+                        <button type="button" class="btn btn-secondary btn-sm"><a class="dropdown-item"
+                                href="{% url 'articulos:editArticulo' pk=articulo.pk %}">Editar Articulo</a></button>
                         
+                        <button type="button" class="btn btn-danger btn-sm"><a class="dropdown-item"
+                                href="{% url 'articulos:delete_articulo' pk=articulo.pk %}">Borrar Articulo</a></button>
+                        
+                        <form method="POST" action="{% url 'articulos:detalleArticulos' pk=articulo.pk %}">
+                            {% csrf_token %}
+                        </form>
+                        {% endif %}
+
                     </section>
                 </article>
 
-                {% if user.is_authenticated and user.tipo_usuario == 'colaborador' %}
-                <a class="btn btn-outline-primary" href="{% url 'articulos:editArticulo' pk=articulo.pk %}">Editar Articulo</a>
-                <a class="btn btn-outline-danger" href="{% url 'articulos:delete_articulo' pk=articulo.pk %}">Borrar Articulo</a>
-                <form method="POST" action="{% url 'articulos:detalleArticulos' pk=articulo.pk %}">
-                    {% csrf_token %}
-                </form>                
-                {% endif %}
+                
 
 
                 <!-- seccion de comentarios-->
@@ -45,111 +50,64 @@
                     <div class="card bg-light">
                         <div class="card-body">
                             <!-- Comentario form -->
-                            {% if user.is_authenticated %}                         
+                            {% if user.is_authenticated %}
 
                             <form method="POST" action="{% url 'articulos:add_comentario' articulo.pk %}">
                                 {% csrf_token %}
                                 {{ form.as_p }}
-                                <button type="submit" class="btn btn-outline-success">ENVIAR</button>
+                                <button type="submit" class="btn btn-success btn-sm"><a class="dropdown-item">Enviar</a></button>
+                                <!-- <button type="submit" class="btn btn-outline-success">ENVIAR</button> -->
                             </form>
                             <br>
                             {% else %}
                             <p>Debe iniciar sesión para añadir un comentario.</p>
                             <a href="{% url 'login' %}" class="btn btn-outline-dark">Iniciar Sesión</a>
                             {% endif %}
-                
-                            <!-- Comentarios -->
-                            <h4>Comentarios:</h4>
-                            
-                            {% for comentario in comentarios %}
-                            <hr>
-                            <div class="d-flex">
-                                <div class="ms-3">
-                                    <div class="fw-bold">{{ comentario.usuario_comentario }}</div>
-                                    {{ comentario.comentario }}
-                                </div>                                
-                            </div>
-                            {% if comentario.usuario_comentario == user.username or user.tipo_usuario == 'colaborador' %}
-                            <!-- Si el usuario es el autor del comentario o un colaborador, se le habilita editar y borrar el comentario -->
-                            <a href="{% url 'articulos:edit_comentario' comentario_id=comentario.pk %}"
-                                class="btn btn-outline-primary ms-2">Editar</a>
-                            <a href="{% url 'articulos:delete_comentario' comentario_id=comentario.pk %}"
-                                class="btn btn-outline-danger ms-2">Borrar</a>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                </section>   
-                <a name="" id="" class="btn btn-outline-dark" href="{% url 'articulos:listarArticulos' %}" role="button">Volver</a>
 
+                            <!-- prueba -->
+                            <div class="card-body text-center">
+                                <h4 class="card-title">Comentarios:</h4>
+                            </div>
+                            <div class="row d-flex justify-content-center mt-100 mb-100">
+                                {% for comentario in comentarios %}
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="comment-widgets">
+                                            <!-- Comment Row -->
+                                            <div class="d-flex flex-row comment-row">
+                                                <div class="p-2"><img src="{{comentario.usuario_comentario.imagen}}"
+                                                        alt="user" width="50" class="rounded-circle"></div>
+                                                <div class="comment-text active w-100">
+                                                    <h6 class="font-medium">
+                                                        <strong>{{comentario.usuario_comentario}}</strong></h6> 
+                                                        <span class="m-b-15 d-block"> {{comentario.comentario}} </span>
+                                                        
+                                                    <div class="comment-footer"> 
+                                                        <div class="text-muted fst-italic mb-2">{{comentario.fecha_publicacion}}</div>                                                        
+                                                        <span class="text-muted float-end">
+                                                            {% if comentario.usuario_comentario == user.username or user.tipo_usuario == 'colaborador' %}
+                                                            <button type="button" class="btn btn-secondary btn-sm"><a class="dropdown-item"
+                                                                    href="{% url 'articulos:edit_comentario' comentario_id=comentario.pk %}">Editar</a></button>
+                                                            <button type="button" class="btn btn-danger btn-sm"><a class="dropdown-item"
+                                                                    href="{% url 'articulos:delete_comentario' comentario_id=comentario.pk %}">Borrar</a></button>
+                                                            {% endif %}                                                          
+                                                        </span>
+                                                    </div>                                                        
+                                                </div>                                                
+                                            </div> <!-- Comment Row -->
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}                               
+                            </div>
+                        </div>
+                </section>
+                <span class="text-muted float-end">
+                <button type="button" class="btn btn-dark btn-sm"><a class="dropdown-item"
+                        href="{% url 'articulos:listarArticulos' %}">Volver</a></button>                
+                </span>
             </div>
         </div>
     </div>
-    
 </section>
-
-
-
-
-<!-- CODIGO VIEJO -->
-
-
-<!-- <img src="{{ articulo.imagen.url }}" width="50">
-<p>Titulo: {{ articulo.titulo }}</p>
-<p>Contenido Breve: {{ articulo.contenido_breve }}</p>
-<p>Contenido Completo: {{ articulo.contenido_completo }}</p>
-<p>Fecha Publicacion: {{ articulo.fecha_publicacion }}</p>
-<p>Categoria Articulo: {{ articulo.categoria_articulo }}</p>
-<p>Usuario Articulo: {{ articulo.usuario_articulo }}</p>
-<br>
-{% if user.is_authenticated and user.tipo_usuario == 'colaborador' %}
-<a class="btn btn-outline-dark" href="{% url 'articulos:editArticulo' pk=articulo.pk %}">Editar Articulo</a>
-<form method="POST" action="{% url 'articulos:detalleArticulos' pk=articulo.pk %}">
-    {% csrf_token %}
-</form>
-<a class="btn btn-outline-dark" href="{% url 'articulos:delete_articulo' pk=articulo.pk %}">Borrar Articulo</a>
-{% endif %}
-<br>
-
-<h3>Comentarios</h3>
-{% for comentario in comentarios %}
-<p>{{ comentario.usuario_comentario }} - {{ comentario.fecha_publicacion }}</p>
-<p>{{ comentario.comentario }}</p> -->
-
-<!-- Si el usuario es colaborador o es el que hizo el comentario se le habilita para poder borrar -->
-<!-- {% if comentario.usuario_comentario == user.username or user.tipo_usuario == 'colaborador' %}
-<a class="btn btn-outline-dark" type="submit" href="{% url 'articulos:edit_comentario' comentario_id=comentario.pk %}">Editar Comentario</a>
-<a class="btn btn-outline-dark" type="submit" href="{% url 'articulos:delete_comentario' comentario_id=comentario.pk %}">Borrar Comentario</a>
-{% endif %} -->
-
-
-<!-- {% empty %}
-<p>No hay comentarios.</p>
-{% endfor %}
-
-{% if user.is_authenticated %}
-    <h3>Añadir Comentario</h3>
-    <form method="POST" action="{% url 'articulos:add_comentario' articulo.pk %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-outline-dark">ENVIAR</button> -->
-        <!-- <button type="submit">Enviar</button> -->
-   <!--  </form>
-{% else %}
-    <p>Debe iniciar sesión para añadir un comentario</p>
-    <a name="" id="" class="btn btn-outline-dark" href="{% url 'login' %}" role="button">Iniciar Sesion</a>
-{% endif %}
-    <br><br>
-    <a name="" id="" class="btn btn-outline-dark" href="{% url 'articulos:listarArticulos' %}" role="button">Volver</a>
-
- -->
-
-
-
-
-
-
-
-
-
 {% endblock contenido %}
