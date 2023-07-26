@@ -18,7 +18,16 @@
 
 </head>
 
-<body>  
+<body>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR%}
+                    <p  {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}  
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
@@ -71,7 +80,7 @@
                     </ul>
                 </li>
                 {% endif %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'contacto:contacto' %}">Contacto</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'acerca_de' %}">Acerca de</a></li>
             
                 <form class="d-flex">
