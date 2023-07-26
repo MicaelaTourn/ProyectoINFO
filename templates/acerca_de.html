@@ -4,7 +4,7 @@
 {% block titulo %}Acerca de{% endblock titulo %}
 
 {% block contenido %}
-<h2>Pagina Acerca de</h2>
+
 
 <!-- Header-->
 <header class="py-5">
@@ -12,11 +12,12 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 col-xxl-6">
                 <div class="text-center my-5">
-                    <h1 class="fw-bolder mb-3">Our mission is to make building websites easier for everyone.</h1>
-                    <p class="lead fw-normal text-muted mb-4">Start Bootstrap was built on the idea that quality,
-                        functional website templates and themes should be available to everyone. Use our open source,
-                        free products, or support us by purchasing one of our premium products or services.</p>
-                    <a class="btn btn-primary btn-lg" href="#scroll-target">Read our story</a>
+                    <h1 class="fw-bolder mb-3">¡Bienvenido a Delicias Culinarias!</h1>
+                    <p class="lead fw-normal text-muted mb-4">En Delicias Culinarias, estamos apasionados por la cocina y creemos que la comida es mucho más que solo una necesidad
+                    básica; es un arte que despierta emociones, crea conexiones y brinda momentos inolvidables. Nuestro blog nació con el
+                    deseo de compartir nuestra pasión por la cocina y llevar a nuestros lectores en un viaje culinario lleno de sabores,
+                    aromas y experiencias inolvidables.</p>
+                    
                 </div>
             </div>
         </div>
@@ -27,12 +28,12 @@
     <div class="container px-5 my-5">
         <div class="row gx-5 align-items-center">
             <div class="col-lg-6"><img class="img-fluid rounded mb-5 mb-lg-0"
-                    src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
+                    src="{% static 'img/img13.jpg' %}" alt="..." /></div>
             <div class="col-lg-6">
-                <h2 class="fw-bolder">Our founding</h2>
-                <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
-                    est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit
-                    cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
+                <h2 class="fw-bolder">¿Quiénes Somos?</h2>
+                <p class="lead fw-normal text-muted mb-0">Somos un equipo de entusiastas amantes de la gastronomía con una diversidad de antecedentes y culturas, pero con una
+                cosa en común: la dedicación a la cocina como forma de expresión y amor. Nuestra misión es inspirar a las personas a
+                descubrir el placer de cocinar y a disfrutar de cada etapa del proceso culinario.</p>
             </div>
         </div>
     </div>
@@ -42,16 +43,67 @@
     <div class="container px-5 my-5">
         <div class="row gx-5 align-items-center">
             <div class="col-lg-6 order-first order-lg-last"><img class="img-fluid rounded mb-5 mb-lg-0"
-                    src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
+                    src="{% static 'img/img12.jpg' %}" alt="..." /></div>
             <div class="col-lg-6">
-                <h2 class="fw-bolder">Growth &amp; beyond</h2>
-                <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
-                    est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit
-                    cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
+                <h2 class="fw-bolder">Nuestro Propósito</h2>
+                <p class="lead fw-normal text-muted mb-0">En Delicias Culinarias, nuestro propósito es proporcionar contenido que no solo sea delicioso, sino también nutritivo y
+                accesible para todos. Creemos que la cocina es una forma de arte que permite la creatividad y la experimentación, y
+                nuestro objetivo es brindarte recetas, tips y consejos que te animen a aventurarte en la cocina y descubrir nuevas
+                habilidades culinarias.</p>
             </div>
         </div>
     </div>
 </section>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-12">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h1 class="fw-bolder mb-1">Lo que Encontrarás en Nuestro Blog</h1>                                        
+                        </header>
+                        <!-- Post content-->
+                        <section class="mb-5">
+                            <p class="fs-5 mb-4"><strong>Recetas para Todos los Gustos:</strong> Nuestro blog ofrece una amplia gama de recetas que se adaptan a diferentes paladares y
+                            preferencias alimentarias. Desde platos reconfortantes y caseros hasta opciones saludables y vegetarianas, encontrarás
+                            algo que te deleitará en cada ocasión.</p>
+                            <p class="fs-5 mb-4"><strong>Explorando la Gastronomía Internacional:</strong> Nos encanta viajar a través de sabores y aromas de todo el mundo. En nuestro
+                            blog, podrás descubrir recetas auténticas y técnicas tradicionales de diferentes culturas, llevando la emoción de la
+                            comida internacional directamente a tu mesa.</p>
+                            <p class="fs-5 mb-4"><strong>Tips y Trucos Culinarios:</strong> Queremos que te sientas confiado en la cocina, por lo que compartimos valiosos tips y trucos
+                            que te ayudarán a perfeccionar tus habilidades culinarias y a enfrentar nuevos desafíos gastronómicos.</p>
+                        </section>
+                    </article>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Team members section-->
 <section class="py-5 bg-light">
     <div class="container px-5 my-5">
