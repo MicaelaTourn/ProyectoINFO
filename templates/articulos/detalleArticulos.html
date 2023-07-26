@@ -60,8 +60,13 @@
                             </form>
                             <br>
                             {% else %}
-                            <p>Debe iniciar sesión para añadir un comentario.</p>
-                            <a href="{% url 'login' %}" class="btn btn-outline-dark">Iniciar Sesión</a>
+                            
+                                <div class="card-body text-center">
+                                    <p class="text-muted fst-italic mb-2">"Debe iniciar sesión para poder añadir un comentario."</p>
+                                        <a href="{% url 'login' %}" class="btn btn-outline-dark">Iniciar Sesión</a>
+                                </div>
+                            
+                            
                             {% endif %}
 
                             <!-- prueba -->
