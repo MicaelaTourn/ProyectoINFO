@@ -12,23 +12,29 @@
         <div class="row justify-content-start">
             <div class="col-md-6">
                 
-                <div class="mb-3">
-                    <ul>
-                        <li><p>{{ categoria.descripcion }}</p></li>
-                        <a name="edit_categoria" class="btn btn-outline-dark" href="{% url 'articulos:edit_categoria' categoria.pk %}" role="button">Editar categoria</a>
-                        <a name="delete_categoria" class="btn btn-outline-dark" href="{% url 'articulos:delete_categoria' categoria.pk %}"
-                            role="button">Borrar categoria</a>
-                    </ul>
-                    
-                </div>                
+                <div class="mb-3">                   
+                        <table class="table users table-hover">
+                            <thead>
+                                <tr>
+                                    <th><strong>{{ categoria.descripcion }}</strong></th>
+                                    <th></th>
+                                    <th><a name="edit_categoria" class="btn btn-secondary btn-sm"
+                                            href="{% url 'articulos:edit_categoria' categoria.pk %}" role="button">Editar
+                                            categoria</a>                                            
+                                    </th>
+                                    <th></th>
+                                    <th><a name="delete_categoria" class="btn btn-danger btn-sm"
+                                            href="{% url 'articulos:delete_categoria' categoria.pk %}" role="button">Borrar
+                                            categoria</a></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                </div>
             </div>
-        </div>
-    {% endfor %}
-    <a name="addcategoria" class="btn btn-outline-dark" href="{% url 'articulos:addcategoria' %}" role="button">Crear Categoria</a>
-    
+        </div>       
+    {% endfor %}   
     {% else %}
-    <h2>No hay Categorias</h>
+        <h2>No hay Categorias</h>       
         {% endif %}
-
-</div>
     {% endblock contenido %}
