@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}Contacto{% endblock titulo %}
+
+{% block contenido %}
+
+<section class="py-5">
+    <div class="container px-5">
+       
+        <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+            <div class="text-center mb-5">                
+                <h1 class="fw-bolder">Contacto:</h1>
+            </div>
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-8 col-xl-6">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="form-floating mb-3">
+                            <input class="form-control" name="nombre" type="text" placeholder="Nombre Completo" required />
+                            <label for="nombre">Nombre</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input class="form-control" name="email" type="text" placeholder="Email" required />
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" name="telefono" type="text" 
+                                required />
+                            <label for="telefono">Teléfono</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" name="mensaje" type="text" placeholder="Ingrese su mensaje...."
+                                style="height: 10rem" required"></textarea>
+                            <label for="mensaje">Mensaje</label>
+                        </div>
+
+                        
+                       
+                        <div class="d-grid"><button class="btn btn-primary btn-lg " type="submit">Enviar</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock contenido %}

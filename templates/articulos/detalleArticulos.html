@@ -7,7 +7,7 @@
 <section class="py-5">
     <div class="container px-5 my-5">
         <div class="row gx-5">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <!-- Contenido post-->
                 <article>
                     <!-- Post header-->
@@ -26,7 +26,7 @@
                     <!-- Post content-->
                     <section class="mb-5">
                         <p class="fs-5 mb-4">{{ articulo.contenido_completo }}</p> 
-                        {% if user.is_authenticated and user.tipo_usuario == 'colaborador' %}
+                        {% if user.is_authenticated and articulo.usuario_articulo == user or user.is_staff or user.is_superuser %}
                         <button type="button" class="btn btn-secondary btn-sm"><a class="dropdown-item"
                                 href="{% url 'articulos:editArticulo' pk=articulo.pk %}">Editar Articulo</a></button>
                         
@@ -47,6 +47,9 @@
                 <!-- seccion de comentarios-->
 
                 <section>
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Comentarios:</h4>
+                    </div>
                     <div class="card bg-light">
                         <div class="card-body">
                             <!-- Comentario form -->
@@ -60,14 +63,17 @@
                             </form>
                             <br>
                             {% else %}
-                            <p>Debe iniciar sesión para añadir un comentario.</p>
-                            <a href="{% url 'login' %}" class="btn btn-outline-dark">Iniciar Sesión</a>
+                            
+                                <div class="card-body text-center">
+                                    <p class="text-muted fst-italic mb-2">"Debe iniciar sesión para poder añadir un comentario."</p>
+                                        <a href="{% url 'login' %}" class="btn btn-outline-dark">Iniciar Sesión</a>
+                                </div>
+                            
+                            
                             {% endif %}
 
                             <!-- prueba -->
-                            <div class="card-body text-center">
-                                <h4 class="card-title">Comentarios:</h4>
-                            </div>
+                            
                             <div class="row d-flex justify-content-center mt-100 mb-100">
                                 {% for comentario in comentarios %}
                                 <div class="col-lg-12">
@@ -75,7 +81,7 @@
                                         <div class="comment-widgets">
                                             <!-- Comment Row -->
                                             <div class="d-flex flex-row comment-row">
-                                                <div class="p-2"><img src="{{comentario.usuario_comentario.imagen}}"
+                                                <div class="p-2"><img src="{{user.imagen.url}}"
                                                         alt="user" width="50" class="rounded-circle"></div>
                                                 <div class="comment-text active w-100">
                                                     <h6 class="font-medium">
@@ -85,7 +91,7 @@
                                                     <div class="comment-footer"> 
                                                         <div class="text-muted fst-italic mb-2">{{comentario.fecha_publicacion}}</div>                                                        
                                                         <span class="text-muted float-end">
-                                                            {% if comentario.usuario_comentario == user.username or user.tipo_usuario == 'colaborador' %}
+                                                            {% if comentario.usuario_comentario == user.username or user.is_staff or user.is_superuser %}
                                                             <button type="button" class="btn btn-secondary btn-sm"><a class="dropdown-item"
                                                                     href="{% url 'articulos:edit_comentario' comentario_id=comentario.pk %}">Editar</a></button>
                                                             <button type="button" class="btn btn-danger btn-sm"><a class="dropdown-item"
