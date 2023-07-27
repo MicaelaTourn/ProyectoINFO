@@ -27,6 +27,4 @@ urlpatterns = [
     path('acerca de/', views.acerca_de, name='acerca_de'),
     path('usuarios/', include('apps.usuarios.urls')),
     path('articulos/',include('apps.articulos.urls')),
-    path('contacto/', include('apps.contacto.urls')),
-
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
