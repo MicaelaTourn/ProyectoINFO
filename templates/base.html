@@ -41,7 +41,10 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{% url 'articulos:addarticulo' %}">Crear Articulo</a></li>
                         <li><a class="dropdown-item" href="{% url 'articulos:addcategoria' %}">Crear Categoría</a></li>
+                        <hr>
                         <li><a class="dropdown-item" href="{% url 'articulos:listarCategorias' %}">Categorias</a></li>
+                        <hr>
+                        <li><a class="dropdown-item" href="{% url 'contacto:mensajes' %}">Mensajes Contactos</a></li>
                     </ul>
                 </li>
                 {% endif %}
