@@ -30,9 +30,9 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'articulos:listarArticulos' %}">Articulos</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'contacto:mensaje' %}">Contacto</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'acerca_de' %}">Acerca de</a></li>
-                {% if user.is_authenticated and user.tipo_usuario == 'colaborador' %}
+                {% if user.is_authenticated and user.is_staff or user.is_superuser  %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">

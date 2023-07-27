@@ -12,4 +12,4 @@ def msj_contacto(request):
             return redirect('home')
     else:
         form = ContactoForm()
-    return render(request,'contacto.html',{'form':form})
+    return render(request,'contacto/contacto.html',{'form':form})
