@@ -4,5 +4,6 @@ from . import views
 app_name = 'contacto'
 
 urlpatterns = [
-    path('mensaje/', views.msj_contacto, name='mensaje'),
+    path('mensajes/', views.listarMensajes, name='mensajes'),
+    path('', views.msj_contacto, name='contacto'),
 ]

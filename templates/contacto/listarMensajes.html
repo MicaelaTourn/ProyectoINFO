@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}Mensajes{% endblock titulo %}
+
+{% block contenido %}
+
+{% if mensajes %}
+
+    
+    {% for mensaje in mensajes %}
+    
+    {{ mensaje.nombre }}
+    {{ mensaje.email }}
+    {{ mensaje.telefono }}
+    {{ mensaje.mensaje}}
+    {{ mensaje.fecha }}
+     
+    {% endfor %}
+   
+
+{% else %}
+    <h2>No hay mensajes</h>
+{% endif %}
+
+{% endblock contenido %}
