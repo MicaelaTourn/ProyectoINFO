@@ -16,6 +16,8 @@
                     {% csrf_token %}
                     {{ form.as_table }}
                     <button class="btn btn-primary btn-sm " type="submit">Guardar</button>
+                    <button type="button" class="btn btn-primary btn-sm"><a class="dropdown-item"
+                            href="{% url 'home' %}">Cancelar</a></button>
                 </form>
 
 

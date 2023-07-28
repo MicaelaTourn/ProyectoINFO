@@ -166,7 +166,7 @@ def edit_categoria(request, categoria_id):
 @login_required
 def delete_categoria(request, categoria_id):
     categoria = get_object_or_404(Categoria, id=categoria_id)
-    if request.user.tipo_usuario == 'colaborador':
+    if request.user.is_staff or request.user.is_superuser:
         categoria.delete()        
     return redirect('articulos:listarCategorias')
 

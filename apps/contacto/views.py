@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Contacto
 from .forms import ContactoForm
+from django.contrib.auth.decorators import login_required
 
 # formulario para recibir msj de la template de contacto
 def msj_contacto(request):
@@ -14,7 +15,7 @@ def msj_contacto(request):
         form = ContactoForm()
     return render(request,'contacto/contacto.html',{'form':form})
 
-
+# LISTAR MENSAJES DE LOS CONTACTOS
 def listarMensajes(request):
     mensajes = Contacto.objects.all()
 
@@ -22,3 +23,11 @@ def listarMensajes(request):
         'mensajes': mensajes,        
     }
     return render(request, 'contacto/listarMensajes.html',contexto)
+
+# BORRAR MENSAJE DE LOS CONTACTOS
+@login_required
+def delete_mensaje(request, mensaje_id):
+    mensaje = get_object_or_404(Contacto, id=mensaje_id)
+    if request.user.is_staff or request.user.is_superuser:
+        mensaje.delete()        
+    return redirect('contacto:mensajes')
