@@ -189,11 +189,10 @@ def add_comentario(request, articulo_id):
 @login_required
 def edit_comentario(request, comentario_id):
     comentario = get_object_or_404(Comentario, id=comentario_id)
-
     #mensaje de error si no sos el autor
-    if request.user.tipo_usuario == 'publico' and comentario.usuario_comentario != request.user.username:
+    """ if comentario.usuario_comentario == request.user.username:
         messages.error(request, 'No tienes permisos para editar este comentario.')
-        return redirect('articulos:detalleArticulos', pk=comentario.articulo_comentario.pk)
+        return redirect('articulos:detalleArticulos', pk=comentario.articulo_comentario.pk) """
 
     if request.method == 'POST':
         form = ComentarioForm(request.POST, instance=comentario)
