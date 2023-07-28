@@ -16,17 +16,17 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Categoría</th>
-                                    <th scope="col">#</th>
-                                    <th scope="col">#</th>
+                                    <th scope="col">    ➜</th>
+                                    <th scope="col">CATEGORIA</th>
+                                    <th scope="col">EDITAR</th>
+                                    <th scope="col">BORRAR</th>
                                 </tr>
                             </thead>
                             
                             <tbody>
                                 {% for categoria in categorias %}
                                 <tr>
-                                    <th scope="row">*</th>
+                                    <th scope="row">  ✔️</th>
                                     <td><strong>{{categoria}}</strong></td>
                                     <td><a name="edit_categoria" class="btn btn-secondary btn-sm" href="{% url 'articulos:edit_categoria' categoria.pk %}"
                                         role="button">Editar</a></td>
