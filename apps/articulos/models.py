@@ -12,7 +12,7 @@ class Categoria(models.Model):
 # definimos clase articulo
 class Articulo(models.Model):
     titulo = models.CharField(max_length=250)
-    contenido_breve = models.CharField(max_length=500)
+    contenido_breve = models.TextField()
     contenido_completo = models.TextField()
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     imagen = models.ImageField(upload_to='articulos')
