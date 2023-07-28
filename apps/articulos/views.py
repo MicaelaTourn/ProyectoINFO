@@ -180,7 +180,7 @@ def add_comentario(request, articulo_id):
     articulo = get_object_or_404(Articulo, id=articulo_id)
     if request.method == 'POST':
         text = request.POST.get('comentario')
-        usuario = request.user.username
+        usuario = request.user
         # creacion de comentario
         Comentario.objects.create(articulo_comentario=articulo, usuario_comentario=usuario, comentario=text)
     return redirect('articulos:detalleArticulos', pk=articulo_id)

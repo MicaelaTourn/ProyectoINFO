@@ -25,7 +25,7 @@ class Articulo(models.Model):
 # definimos clase comentario
 class Comentario(models.Model):
     articulo_comentario = models.ForeignKey(Articulo, on_delete=models.CASCADE, related_name='comentarios')
-    usuario_comentario = models.CharField(max_length=100)
+    usuario_comentario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     comentario = models.TextField()
     fecha_publicacion = models.DateTimeField(auto_now_add=True) 
 
