@@ -32,6 +32,8 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'articulos:listarArticulos' %}">Articulos</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'contacto:contacto' %}">Contacto</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'acerca_de' %}">Acerca de</a></li>
+                <!-- SI ES SUPER USUARIO LE APAREZCA LA OPCION DE ADMIN DE LA PAGINA -->
+                
                 {% if user.is_authenticated and user.is_staff or user.is_superuser  %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -45,6 +47,10 @@
                         <li><a class="dropdown-item" href="{% url 'articulos:listarCategorias' %}">Categorias</a></li>
                         <hr>
                         <li><a class="dropdown-item" href="{% url 'contacto:mensajes' %}">Mensajes Contactos</a></li>
+                        {% if user.is_authenticated and user.is_superuser %}
+                        <hr>
+                        <li><a class="dropdown-item" href="{% url 'administrador' %}">Aministrador</a></li>
+                        {% endif %}
                     </ul>
                 </li>
                 {% endif %}

@@ -26,7 +26,7 @@
                     <!-- Post content-->
                     <section class="mb-5">
                         <p class="fs-5 mb-4">{{ articulo.contenido_completo }}</p> 
-                        {% if user.is_authenticated and articulo.usuario_articulo == user or user.is_staff or user.is_superuser %}
+                        {% if user.is_authenticated and articulo.usuario_articulo == user.username or user.is_superuser %}
                         <button type="button" class="btn btn-secondary btn-sm"><a class="dropdown-item"
                                 href="{% url 'articulos:editArticulo' pk=articulo.pk %}">Editar Articulo</a></button>
                         
@@ -43,7 +43,7 @@
 
                 <section>
                     <div class="card-body text-center">
-                        <h1 class="fw-bolder">Comentarios:</h1>
+                        <h2 class="fw-bolder">Comentarios:</h2>
                     </div>
                     <div class="card bg-light">
                         <div class="card-body">

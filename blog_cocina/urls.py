@@ -19,6 +19,10 @@ from django.urls import path, include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.shortcuts import redirect
+
+def consola_admin(request):
+    return redirect('/admin/')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +31,6 @@ urlpatterns = [
     path('usuarios/', include('apps.usuarios.urls')),
     path('articulos/',include('apps.articulos.urls')),
     path('contacto/', include('apps.contacto.urls')),
+    path('administrador/', consola_admin, name='administrador'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
