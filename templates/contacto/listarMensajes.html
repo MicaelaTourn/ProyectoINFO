@@ -8,19 +8,39 @@
 {% if mensajes %}
 
     
-    {% for mensaje in mensajes %}
     
-    {{ mensaje.nombre }}
-    <hr>
-    {{ mensaje.email }}
-    <hr>
-    {{ mensaje.telefono }}
-    <hr>
-    {{ mensaje.mensaje}}
-    <hr>
-    {{ mensaje.fecha }}
+<h2>Mensajes de contactos:</h2>
+            <div class="row justify-content-start">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Teléfono</th>
+                                    <th scope="col">Mensaje</th>
+                                    <th scope="col">Fecha</th>
+                                </tr>
+                            </thead>
+                            {% for mensaje in mensajes %}
+
+                            <tbody>
+                                <tr>
+                                    <td>{{ mensaje.nombre }}</td>
+                                    <td>{{ mensaje.email }}</td>
+                                    <td>{{ mensaje.telefono }}</td>
+                                    <td>{{ mensaje.mensaje }}</td>
+                                    <td>{{ mensaje.fecha }}</td>
+                                </tr>
+                            </tbody>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
      
-    {% endfor %}
+   
    
 
 {% else %}

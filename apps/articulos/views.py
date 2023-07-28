@@ -95,8 +95,7 @@ def editArticulo(request, pk):
 @login_required
 def delete_articulo(request, pk):
     articulo = get_object_or_404(Articulo, id=pk)
-    if request.user.tipo_usuario == 'colaborador':
-        articulo.delete()
+    articulo.delete()
     return redirect('articulos:listarArticulos')
 
 # CREAR ARTICULO

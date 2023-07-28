@@ -8,32 +8,44 @@
 {% if categorias %}
 <div class="container">
 <h2>Listar Categorias:</h2>
-    {% for categoria in categorias %}
+    
         <div class="row justify-content-start">
             <div class="col-md-6">
-                
                 <div class="mb-3">                   
-                        <table class="table users table-hover">
+                       
+                        <table class="table">
                             <thead>
                                 <tr>
-                                    <th><strong>{{ categoria.descripcion }}</strong></th>
-                                    <th></th>
-                                    <th><a name="edit_categoria" class="btn btn-secondary btn-sm"
-                                            href="{% url 'articulos:edit_categoria' categoria.pk %}" role="button">Editar
-                                            categoria</a>                                            
-                                    </th>
-                                    <th></th>
-                                    <th><a name="delete_categoria" class="btn btn-danger btn-sm"
-                                            href="{% url 'articulos:delete_categoria' categoria.pk %}" role="button">Borrar
-                                            categoria</a></th>
-                                    <th></th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Categoría</th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">#</th>
                                 </tr>
                             </thead>
+                            
+                            <tbody>
+                                {% for categoria in categorias %}
+                                <tr>
+                                    <th scope="row">*</th>
+                                    <td><strong>{{categoria}}</strong></td>
+                                    <td><a name="edit_categoria" class="btn btn-secondary btn-sm" href="{% url 'articulos:edit_categoria' categoria.pk %}"
+                                        role="button">Editar</a></td>
+                                    <td><a name="delete_categoria" class="btn btn-danger btn-sm" href="{% url 'articulos:delete_categoria' categoria.pk %}"
+                                        role="button">Borrar</a></td>
+                                </tr>  
+                                {% endfor %}
+                            </tbody>
+                                
                         </table>
+
+
+
+
+
                 </div>
             </div>
         </div>       
-    {% endfor %}   
+    
     {% else %}
         <h2>No hay Categorias</h>       
         {% endif %}

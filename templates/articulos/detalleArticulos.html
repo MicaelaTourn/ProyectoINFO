@@ -41,39 +41,28 @@
                     </section>
                 </article>
 
-                
-
-
-                <!-- seccion de comentarios-->
-
                 <section>
                     <div class="card-body text-center">
-                        <h4 class="card-title">Comentarios:</h4>
+                        <h1 class="fw-bolder">Comentarios:</h1>
                     </div>
                     <div class="card bg-light">
                         <div class="card-body">
-                            <!-- Comentario form -->
                             {% if user.is_authenticated %}
-
                             <form method="POST" action="{% url 'articulos:add_comentario' articulo.pk %}">
                                 {% csrf_token %}
-                                {{ form.as_p }}
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" name="comentario" type="text" placeholder="Ingrese comentario..." required />
+                                        <label for="comentario">Ingrese comentario...</label>
+                                    </div>
                                 <button type="submit" class="btn btn-success btn-sm"><a class="dropdown-item">Enviar</a></button>
-                                <!-- <button type="submit" class="btn btn-outline-success">ENVIAR</button> -->
                             </form>
                             <br>
                             {% else %}
-                            
                                 <div class="card-body text-center">
                                     <p class="text-muted fst-italic mb-2">"Debe iniciar sesión para poder añadir un comentario."</p>
                                         <a href="{% url 'login' %}" class="btn btn-outline-dark">Iniciar Sesión</a>
                                 </div>
-                            
-                            
                             {% endif %}
-
-                            <!-- prueba -->
-                            
                             <div class="row d-flex justify-content-center mt-100 mb-100">
                                 {% for comentario in comentarios %}
                                 <div class="col-lg-12">
