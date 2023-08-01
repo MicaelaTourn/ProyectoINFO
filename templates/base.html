@@ -20,63 +20,63 @@
 
 <body>  
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">Blog | Cocina</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
-                class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'articulos:listarArticulos' %}">Articulos</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'contacto:contacto' %}">Contacto</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'acerca_de' %}">Acerca de</a></li>
-                <!-- SI ES SUPER USUARIO LE APAREZCA LA OPCION DE ADMIN DE LA PAGINA -->
-                
-                {% if user.is_authenticated and user.is_staff or user.is_superuser  %}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Menu Colaborador
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'articulos:addarticulo' %}">Crear Articulo</a></li>
-                        <li><a class="dropdown-item" href="{% url 'articulos:addcategoria' %}">Crear Categoría</a></li>
-                        <hr>
-                        <li><a class="dropdown-item" href="{% url 'articulos:listarCategorias' %}">Categorias</a></li>
-                        <hr>
-                        <li><a class="dropdown-item" href="{% url 'contacto:mensajes' %}">Mensajes Contactos</a></li>
-                        {% if user.is_authenticated and user.is_superuser %}
-                        <hr>
-                        <li><a class="dropdown-item" href="{% url 'administrador' %}">Aministrador</a></li>
-                        {% endif %}
-                    </ul>
-                </li>
-                {% endif %}
-            
-                <form class="d-flex">
-                    {% if user.is_authenticated %}
-                        {% if not user.is_superuser and not user.is_staff  %}
-                            <button class="btn btn-outline-light" type="button"><strong>{{ user.username }}</strong>____(Miembro)</button>
-                        
-                        {% elif user.is_staff and not user.is_superuser  %}
-                            <button class="btn btn-outline-light" type="button"><strong>{{ user.username }}</strong>____(Colaborador)</button>
-                        {% else %}
-                            <button class="btn btn-outline-light" type="button"><strong>{{ user.username }}</strong>____(SuperUser)</button>
-                        {% endif %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><strong>Cerra Sesión</strong></a></li>
-                    {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}"><strong>Registrarse</strong></a></li>
-                        <li class="nav-item"><a class="nav-link " href="{% url 'login' %}"><strong>Iniciar Sesión</strong></a></li>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Blog | Cocina</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'articulos:listarArticulos' %}">Articulos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contacto:contacto' %}">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'acerca_de' %}">Acerca de</a></li>
+                    <!-- SI ES SUPER USUARIO LE APAREZCA LA OPCION DE ADMIN DE LA PAGINA -->
+                    
+                    {% if user.is_authenticated and user.is_staff or user.is_superuser  %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Menu Colaborador
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'articulos:addarticulo' %}">Crear Articulo</a></li>
+                            <li><a class="dropdown-item" href="{% url 'articulos:addcategoria' %}">Crear Categoría</a></li>
+                            <hr>
+                            <li><a class="dropdown-item" href="{% url 'articulos:listarCategorias' %}">Categorias</a></li>
+                            <hr>
+                            <li><a class="dropdown-item" href="{% url 'contacto:mensajes' %}">Mensajes Contactos</a></li>
+                            {% if user.is_authenticated and user.is_superuser %}
+                            <hr>
+                            <li><a class="dropdown-item" href="{% url 'administrador' %}">Aministrador</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
                     {% endif %}
-                </form>
                 
-                
-            </ul>
+                    <form class="d-flex">
+                        {% if user.is_authenticated %}
+                            {% if not user.is_superuser and not user.is_staff  %}
+                                <button class="btn btn-outline-light" type="button"><strong>{{ user.username }}</strong>____(Miembro)</button>
+                            
+                            {% elif user.is_staff and not user.is_superuser  %}
+                                <button class="btn btn-outline-light" type="button"><strong>{{ user.username }}</strong>____(Colaborador)</button>
+                            {% else %}
+                                <button class="btn btn-outline-light" type="button"><strong>{{ user.username }}</strong>____(SuperUser)</button>
+                            {% endif %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><strong>Cerra Sesión</strong></a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}"><strong>Registrarse</strong></a></li>
+                            <li class="nav-item"><a class="nav-link " href="{% url 'login' %}"><strong>Iniciar Sesión</strong></a></li>
+                        {% endif %}
+                    </form>
+                    
+                    
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 
 
@@ -101,7 +101,7 @@
                     <span class="text-white mx-1">&middot;</span>
                     <a class="link-light small" href="#!">Terms</a>
                     <span class="text-white mx-1">&middot;</span>
-                    <a class="link-light small" href="#!">Contact</a>
+                    <a class="link-light small" href="{% url 'contacto:contacto'%}">Contact</a>
                 </div>
             </div>
         </div>
