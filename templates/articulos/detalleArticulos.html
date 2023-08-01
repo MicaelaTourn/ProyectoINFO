@@ -26,7 +26,7 @@
                     <!-- Post content-->
                     <section class="mb-5">
                         <p class="fs-5 mb-4">{{ articulo.contenido_completo }}</p>                        
-                        {% if user.is_authenticated and articulo.usuario_articulo == user or user.is_superuser %}
+                        {% if user.is_authenticated and tipo_usuario == 'Colaborador' or user.is_superuser %}
                         <button type="button" class="btn btn-secondary btn-sm"><a class="dropdown-item"
                                 href="{% url 'articulos:editArticulo' pk=articulo.pk %}">Editar Articulo</a></button>
                         <button type="button" class="btn btn-danger btn-sm"><a class="dropdown-item"
@@ -86,7 +86,7 @@
                                                             <button type="button" class="btn btn-danger btn-sm"><a class="dropdown-item"
                                                                     href="{% url 'articulos:delete_comentario' comentario_id=comentario.pk %}">Borrar</a></button>                                                    
                                                                             
-                                                            {% elif user.is_staff or user.is_superuser %}
+                                                            {% elif tipo_usuario == 'Colaborador' or user.is_superuser %}
                                                             <button type="button" class="btn btn-danger btn-sm"><a class="dropdown-item"
                                                                     href="{% url 'articulos:delete_comentario' comentario_id=comentario.pk %}">Borrar</a></button>
                                                             {% endif %}                                                          
