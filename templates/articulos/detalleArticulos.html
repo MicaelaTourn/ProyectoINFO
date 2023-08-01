@@ -75,14 +75,18 @@
                                                 <div class="comment-text active w-100">
                                                     <h6 class="font-medium">
                                                         <strong>{{comentario.usuario_comentario}}</strong></h6> 
-                                                        <span class="m-b-15 d-block"> {{comentario.comentario}} </span>
+                                                        <span class="m-b-15 d-block"> {{comentario.comentario}}</span>
                                                         
                                                     <div class="comment-footer"> 
                                                         <div class="text-muted fst-italic mb-2">{{comentario.fecha_publicacion}}</div>                                                        
                                                         <span class="text-muted float-end">
-                                                            {% if comentario.usuario_comentario == user.username or user.is_staff or user.is_superuser %}                                                            
+                                                            {% if comentario.usuario_comentario_id == user.id %}                                                            
                                                             <button type="button" class="btn btn-secondary btn-sm"><a class="dropdown-item"
                                                                     href="{% url 'articulos:edit_comentario' comentario_id=comentario.pk %}">Editar</a></button>
+                                                            <button type="button" class="btn btn-danger btn-sm"><a class="dropdown-item"
+                                                                    href="{% url 'articulos:delete_comentario' comentario_id=comentario.pk %}">Borrar</a></button>                                                    
+                                                                            
+                                                            {% elif user.is_staff or user.is_superuser %}
                                                             <button type="button" class="btn btn-danger btn-sm"><a class="dropdown-item"
                                                                     href="{% url 'articulos:delete_comentario' comentario_id=comentario.pk %}">Borrar</a></button>
                                                             {% endif %}                                                          
