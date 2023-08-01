@@ -77,7 +77,16 @@
               </div>
             </div>
           </div>
-        </div>      
+        </div>
+        {% if user.is_authenticated and tipo_usuario == 'Colaborador' or user.is_superuser %}
+        <div class="container mt-lg-4">
+          <div class="card mb-2">
+            <div class="card-body">
+              <a class="dropdown-item" href="{% url 'articulos:addarticulo' %}">Añadir artículo</a>
+            </div>
+          </div>
+        </div>
+        {% endif %}      
       </div>
 
   </div>
