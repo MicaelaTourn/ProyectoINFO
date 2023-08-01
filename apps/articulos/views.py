@@ -42,7 +42,8 @@ def listarArticulos(request):
 
     contexto = {
         'articulos': articulos,    
-        'categorias': Categoria.objects.all()
+        'categorias': Categoria.objects.all(),
+        'tipo_usuario': request.user.tipo_usuario
     }
     return render(request, 'articulos/listarArticulos.html',contexto)
 
