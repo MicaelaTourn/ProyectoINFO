@@ -58,12 +58,12 @@
                     <form class="d-flex">
                         {% if user.is_authenticated %}
                             {% if not user.is_superuser and not user.is_staff  %}
-                                <button class="btn btn-outline-light" type="button"><strong>{{ user.username }}</strong>____(Miembro)</button>
+                                <button class="btn btn-outline-light" type="button"><strong>{{ user.username }}</strong>(Miembro)</button>
                             
                             {% elif user.is_staff and not user.is_superuser  %}
-                                <button class="btn btn-outline-light" type="button"><strong>{{ user.username }}</strong>____(Colaborador)</button>
+                                <button class="btn btn-outline-light" type="button"><strong>{{ user.username }}</strong>(Colaborador)</button>
                             {% else %}
-                                <button class="btn btn-outline-light" type="button"><strong>{{ user.username }}</strong>____(SuperUser)</button>
+                                <button class="btn btn-outline-light" type="button"><strong>{{ user.username }}</strong>(SuperUser)</button>
                             {% endif %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><strong>Cerra Sesión</strong></a></li>
                         {% else %}

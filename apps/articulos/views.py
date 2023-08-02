@@ -42,7 +42,8 @@ def listarArticulos(request):
 
     contexto = {
         'articulos': articulos,    
-        'categorias': Categoria.objects.all(),    
+        'categorias': Categoria.objects.all(),
+        'tipo_usuario': request.user.tipo_usuario
     }
     return render(request, 'articulos/listarArticulos.html',contexto)
 
@@ -67,6 +68,7 @@ def detalleArticulos(request, pk):
         'comentarios': comentarios,
         'form': form,
     }
+    contexto['tipo_usuario'] = request.user.tipo_usuario
     return render(request, 'articulos/detalleArticulos.html', contexto)
 
 # EDITAR ARTICULO
@@ -75,7 +77,7 @@ def editArticulo(request, pk):
     articulo = get_object_or_404(Articulo, pk=pk)
 
     # Solo el autor puede editar la noticia
-    if request.user.tipo_usuario =='Miembro':
+    if request.user.tipo_usuario == 'Miembro':
         return HttpResponseForbidden("No tenes permiso para editar esta noticia.")
 
     if request.method == 'POST':
@@ -213,6 +215,6 @@ def edit_comentario(request, comentario_id):
 @login_required
 def delete_comentario(request, comentario_id):
     comentario = get_object_or_404(Comentario, id=comentario_id)
-    if comentario.usuario_comentario_id == request.user.id or request.user.tipo_usuario == 'colaborador':
+    if comentario.usuario_comentario_id == request.user.id or request.user.tipo_usuario == 'Colaborador' or request.user.is_staff:
         comentario.delete()
     return redirect('articulos:detalleArticulos', pk=comentario.articulo_comentario.pk)
