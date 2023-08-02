@@ -25,6 +25,8 @@ SECRET_KEY = 'django-insecure-gevj8ktd8*9mm$(^x4y&*ojl$mi)^2of(zdt)r5(*$ub9)vy8q
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
 # Application definition
 
 INSTALLED_APPS = [

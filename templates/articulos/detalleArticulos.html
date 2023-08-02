@@ -1,7 +1,42 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
+
+
 {% block contenido %}
+{% block js %}
+<script>
+
+    function eliminarArticulo(id) {
+        
+        Swal.fire({
+            'title': '¿Estas seguro?',
+            'text': 'Esta acción no se puede deshacer',
+            'icon': 'question',
+            'showCancelButton': true,
+            'cancelButtonText': 'No, Cancelar',
+            'confirmButtonText': 'Si, Eliminar',
+            'reverseButtons': true,
+            'confirmButtonColor': '#dc3545',
+        })
+        .then(function(result){
+            if (result.isConfirmed){             
+                window.location.href = '{% url 'articulos:delete_articulo' pk=articulo.pk %}';
+            }
+        })
+
+    }
+    
+</script>
+{% endblock js %}
+
+
+
+
+
+
+
 
 <!-- Contenido de la pagina-->
 <section class="py-5">
@@ -29,8 +64,11 @@
                         {% if user.is_authenticated and articulo.usuario_articulo == user or user.is_superuser %}
                         <button type="button" class="btn btn-secondary btn-sm"><a class="dropdown-item"
                                 href="{% url 'articulos:editArticulo' pk=articulo.pk %}">Editar Articulo</a></button>
-                        <button type="button" class="btn btn-danger btn-sm"><a class="dropdown-item"
-                                href="{% url 'articulos:delete_articulo' pk=articulo.pk %}">Borrar Articulo</a></button>
+                        <!-- <button type="button" class="btn btn-danger btn-sm"><a class="dropdown-item" href="{% url 'articulos:delete_articulo' pk=articulo.pk %}">Borrar Articulo</a></button> -->
+                            <a href="#" class="btn btn-danger btn-sm" onclick="eliminarArticulo({{articulo.pk}})">Eliminar Artículo</a>
+
+
+
                         <form method="POST" action="{% url 'articulos:detalleArticulos' pk=articulo.pk %}">
                             {% csrf_token %}
                         </form>

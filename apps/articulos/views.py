@@ -107,7 +107,8 @@ def AddArticulo(request):
             articulo = form.save(commit=False)
             articulo.usuario_articulo = request.user #autor de la noticia
             articulo.save()
-            return redirect('home')
+            messages.success(request, 'Artículo agregado con éxito')
+            return redirect('articulos:detalleArticulos', pk=articulo.pk)
     else:
         form =ArticuloForm()    
     return render(request, 'articulos/addArticulo.html', {'form': form})
