@@ -19,7 +19,7 @@
         })
         .then(function(result){
             if (result.isConfirmed){             
-                window.location.href = '{% url 'articulos:delete_articulo' pk=articulo.pk %}';
+                window.location.href = "{% url 'articulos:delete_articulo' pk=articulo.pk %}";
             }
         })
     }
@@ -48,7 +48,7 @@
                         <button type="button" class="btn btn-secondary btn-sm"><a class="dropdown-item"
                                 href="{% url 'articulos:editArticulo' pk=articulo.pk %}">Editar Articulo</a></button>
                         <!-- <button type="button" class="btn btn-danger btn-sm"><a class="dropdown-item" href="{% url 'articulos:delete_articulo' pk=articulo.pk %}">Borrar Articulo</a></button> -->
-                            <a href="#" class="btn btn-danger btn-sm" onclick="eliminarArticulo({{articulo.pk}})">Eliminar Artículo</a>
+                            <a href="#" class="btn btn-danger btn-sm" onclick= "eliminarArticulo({{articulo.pk}})">Eliminar Artículo</a>
 
                         <form method="POST" action="{% url 'articulos:detalleArticulos' pk=articulo.pk %}">
                             {% csrf_token %}
@@ -134,7 +134,7 @@
                                             })
                                             .then(function(result){
                                                 if (result.isConfirmed){             
-                                                    window.location.href = '{% url 'articulos:delete_comentario' comentario_id=comentario.pk %}';
+                                                    window.location.href = "{% url 'articulos:delete_comentario' comentario_id=comentario.pk %}";
                                                 }
                                             })
                                         }
