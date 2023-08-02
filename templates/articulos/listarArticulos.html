@@ -82,7 +82,7 @@
             </div>
           </div>
         </div>
-        {% if user.is_authenticated and tipo_usuario == 'Colaborador' or user.is_superuser %}
+        {% if user.is_authenticated and tipo_usuario == 'Colaborador' or user.is_superuser or user.is_staff%}
         <div class="container mt-lg-4">
           <div class="card mb-2">
             <div class="card-body">
