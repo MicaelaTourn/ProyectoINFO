@@ -38,3 +38,4 @@ def asignar_miembro(sender, instance, created, **kwargs):
     if created and instance.is_superuser:
         instance.tipo_usuario= Usuario.USUARIO_MIEMBRO
         instance.save()
+

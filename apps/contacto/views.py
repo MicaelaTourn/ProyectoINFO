@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Contacto
 from .forms import ContactoForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # formulario para recibir msj de la template de contacto
 def msj_contacto(request):
@@ -9,7 +10,8 @@ def msj_contacto(request):
         form = ContactoForm(request.POST)
         if form.is_valid():
             contacto = form.save(commit=False)
-            contacto.save()            
+            contacto.save()        
+            messages.success(request, 'Mensaje enviado con éxito')    
             return redirect('home')
     else:
         form = ContactoForm()

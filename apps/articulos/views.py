@@ -43,7 +43,7 @@ def listarArticulos(request):
     contexto = {
         'articulos': articulos,    
         'categorias': Categoria.objects.all(),
-        'tipo_usuario': request.user.tipo_usuario
+        
     }
     return render(request, 'articulos/listarArticulos.html',contexto)
 
@@ -68,7 +68,7 @@ def detalleArticulos(request, pk):
         'comentarios': comentarios,
         'form': form,
     }
-    contexto['tipo_usuario'] = request.user.tipo_usuario
+    
     return render(request, 'articulos/detalleArticulos.html', contexto)
 
 # EDITAR ARTICULO
@@ -84,6 +84,7 @@ def editArticulo(request, pk):
         form = ArticuloForm(request.POST, request.FILES, instance=articulo)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Artículo editado con éxito')
             return redirect('articulos:detalleArticulos', pk=pk)
     else:
         form = ArticuloForm(instance=articulo)
@@ -137,6 +138,7 @@ def  addCategoria(request):
         if form.is_valid():
             categoria = form.save(commit=False)
             categoria.save()
+            messages.success(request, 'Categoría agregada con éxito')
             return redirect('articulos:listarCategorias')
     else:
         form =CategoriaForm()
@@ -156,6 +158,7 @@ def edit_categoria(request, categoria_id):
         form = CategoriaForm(request.POST, instance=categoria)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Categoría editada con éxito')
             return redirect('articulos:listarCategorias')
     else:
         form = CategoriaForm(instance=categoria)
@@ -192,15 +195,12 @@ def add_comentario(request, articulo_id):
 @login_required
 def edit_comentario(request, comentario_id):
     comentario = get_object_or_404(Comentario, id=comentario_id)
-    #mensaje de error si no sos el autor
-    """ if comentario.usuario_comentario == request.user.username:
-        messages.error(request, 'No tienes permisos para editar este comentario.')
-        return redirect('articulos:detalleArticulos', pk=comentario.articulo_comentario.pk) """
 
     if request.method == 'POST':
         form = ComentarioForm(request.POST, instance=comentario)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Comentario editado con éxito')
             return redirect('articulos:detalleArticulos', pk=comentario.articulo_comentario.pk)
     else:
         form = ComentarioForm(instance=comentario)

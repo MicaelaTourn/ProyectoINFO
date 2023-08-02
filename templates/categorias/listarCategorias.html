@@ -5,6 +5,8 @@
 
 {% block contenido %}
 
+
+
 {% if categorias %}
 <div class="container">
 <h2>Listar Categorias:</h2>
@@ -30,9 +32,33 @@
                                     <td><strong>{{categoria}}</strong></td>
                                     <td><a name="edit_categoria" class="btn btn-secondary btn-sm" href="{% url 'articulos:edit_categoria' categoria.pk %}"
                                         role="button">Editar</a></td>
-                                    <td><a name="delete_categoria" class="btn btn-danger btn-sm" href="{% url 'articulos:delete_categoria' categoria.pk %}"
+                                    <!-- <td><a name="delete_categoria" class="btn btn-danger btn-sm" href="{% url 'articulos:delete_categoria' categoria.pk %}"
+                                        role="button">Borrar</a></td> -->
+                                    <td><a name="delete_categoria" onclick="eliminarCategoria({{categoria.pk}})" class="btn btn-danger btn-sm" href="#"
                                         role="button">Borrar</a></td>
+                                        
                                 </tr>  
+                                    {% block js %}
+                                        <script>
+                                            function eliminarCategoria(id) {
+                                                Swal.fire({
+                                                    'title': '¿Estas seguro?',
+                                                    'text': 'Esta acción no se puede deshacer',
+                                                    'icon': 'question',
+                                                    'showCancelButton': true,
+                                                    'cancelButtonText': 'No, Cancelar',
+                                                    'confirmButtonText': 'Si, Eliminar',
+                                                    'reverseButtons': true,
+                                                    'confirmButtonColor': '#dc3545',
+                                                })
+                                                .then(function(result){
+                                                    if (result.isConfirmed){             
+                                                        window.location.href = '{% url 'articulos:delete_categoria' categoria.pk %}';
+                                                    }
+                                                })
+                                            }
+                                        </script>
+                                    {% endblock js %}
                                 {% endfor %}
                             </tbody>
                                 
@@ -47,7 +73,8 @@
                         href="{% url 'home' %}">Cancelar</a></button>
             </span>
         </div>
-        
+
+       
     
     {% else %}
         <h2>No hay Categorias</h>       

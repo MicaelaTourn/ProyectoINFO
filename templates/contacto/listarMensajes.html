@@ -33,10 +33,32 @@
                                     <td>{{ mensaje.telefono }}</td>
                                     <td>{{ mensaje.mensaje }}</td>
                                     <td>{{ mensaje.fecha }}</td>
-                                    <td><a name="delete_mensaje" class="btn btn-danger btn-sm" href="{% url 'contacto:delete_mensaje' mensaje.pk %}"
+                                    <td><a name="delete_mensaje" onclick="eliminarMensaje()" class="btn btn-danger btn-sm" href="#"
                                         role="button">Borrar</a></td>
                                 </tr>
                             </tbody>
+
+                            {% block js %}
+                            <script>
+                                function eliminarMensaje() {
+                                    Swal.fire({
+                                        'title': '¿Estas seguro?',
+                                        'text': 'Esta acción no se puede deshacer',
+                                        'icon': 'question',
+                                        'showCancelButton': true,
+                                        'cancelButtonText': 'No, Cancelar',
+                                        'confirmButtonText': 'Si, Eliminar',
+                                        'reverseButtons': true,
+                                        'confirmButtonColor': '#dc3545',
+                                    })
+                                    .then(function(result){
+                                        if (result.isConfirmed){             
+                                            window.location.href = '{% url 'contacto:delete_mensaje' mensaje.pk %}';
+                                        }
+                                    })
+                                }
+                            </script>
+                        {% endblock js %}
                             {% endfor %}
                         </table>
                     </div>
