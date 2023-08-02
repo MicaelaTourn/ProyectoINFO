@@ -44,7 +44,7 @@
                     <section class="mb-5">
                         <p class="fs-5 mb-4">{{ articulo.contenido_completo }}</p>                        
                         <!-- SOLO APARECE BOTON DE EDITAR Y ELIMINAR ARTICULO SI ES COLABORADOR O SUPER USUARIO -->
-                        {% if user.is_authenticated and tipo_usuario == 'Colaborador' or user.is_superuser or user.is_staff%}
+                        {% if user.is_authenticated and user.is_superuser or user.is_staff %}
                         <button type="button" class="btn btn-secondary btn-sm"><a class="dropdown-item"
                                 href="{% url 'articulos:editArticulo' pk=articulo.pk %}">Editar Articulo</a></button>
                         <!-- <button type="button" class="btn btn-danger btn-sm"><a class="dropdown-item" href="{% url 'articulos:delete_articulo' pk=articulo.pk %}">Borrar Articulo</a></button> -->

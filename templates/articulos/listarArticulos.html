@@ -50,7 +50,7 @@
     <div class="col-lg-4">     
       <div class="container mt-lg-4">
         <div class="card mb-2">
-          <div class="card-header">Categorias</div>
+          <div class="card-header"><strong>Categorias</strong></div>
           <div class="card-body">
             <div class="row">
               <div class="col-sm-6">
@@ -65,7 +65,7 @@
           </div>
         </div> 
         <div class="card mb-2">
-          <div class="card-header">Filtros</div>
+          <div class="card-header"><strong>Filtros</strong></div>
           <div class="card-body">
             <div class="row">
               <div class="col-sm-6">
@@ -82,14 +82,39 @@
             </div>
           </div>
         </div>
-        {% if user.is_authenticated and tipo_usuario == 'Colaborador' or user.is_superuser %}
-        <div class="container mt-lg-4">
-          <div class="card mb-2">
-            <div class="card-body">
-              <a class="dropdown-item" href="{% url 'articulos:addarticulo' %}">Añadir artículo</a>
+        {% if user.is_authenticated and user.is_staff  %}
+        <div class="card mb-2">
+          <div class="card-header"><strong>Menú Colaborador</strong></div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <ul class="list-unstyled mb-0">
+                  <li><a class="dropdown-item" href="{% url 'articulos:addarticulo'  %}">Crear Artículo</a></li>
+                  <li><a class="dropdown-item" href="{% url 'articulos:addcategoria'  %}">Crear Categoría </a></li>
+                  <hr>
+                  <li><a class="dropdown-item" href="{% url 'articulos:listarCategorias'  %}">Lista de categorías </a></li>
+                  <hr>
+                  <li><a class="dropdown-item" href="{% url 'contacto:mensajes'  %}">Mensajes Recibidos </a></li>                 
+                </ul>
+              </div>
             </div>
           </div>
         </div>
+        {% if user.is_superuser %}
+        <div class="card mb-2">
+          <div class="card-header"><strong>Menú Administrador</strong></div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <ul class="list-unstyled mb-0">
+                <li><a class="dropdown-item" href="{% url 'administrador'  %}">Admistración de Página </a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        
         {% endif %}      
       </div>
 
