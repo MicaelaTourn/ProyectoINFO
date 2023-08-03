@@ -77,7 +77,7 @@ def editArticulo(request, pk):
     articulo = get_object_or_404(Articulo, pk=pk)
 
     # Solo el autor puede editar la noticia
-    if request.user.tipo_usuario == 'Miembro':
+    if request.user.tipo_usuario == 'Miembro' and not request.user.is_superuser:
         return HttpResponseForbidden("No tenes permiso para editar esta noticia.")
 
     if request.method == 'POST':
