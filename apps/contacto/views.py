@@ -32,4 +32,5 @@ def delete_mensaje(request, mensaje_id):
     mensaje = get_object_or_404(Contacto, id=mensaje_id)
     if request.user.is_staff or request.user.is_superuser:
         mensaje.delete()        
+        messages.success(request, 'Mensaje Eliminado con éxito')
     return redirect('contacto:mensajes')
