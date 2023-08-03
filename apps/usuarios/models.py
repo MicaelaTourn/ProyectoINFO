@@ -5,7 +5,7 @@ from django.dispatch import receiver
 
 class Usuario(AbstractUser):
     imagen = models.ImageField(upload_to='usuarios', default='default-user.png')
-    email  = models.EmailField(unique=True)
+    email = models.EmailField(unique=True)
 
     # USUARIOS:
     USUARIO_COLABORADOR = 'Colaborador'
@@ -23,7 +23,7 @@ class Usuario(AbstractUser):
     tipo_usuario = models.CharField(max_length=20, choices=TIPO_DE_USUARIO, default=USUARIO_MIEMBRO )
 
     def __str__(self):
-        return self.username,self.email
+        return self.username
 
 # Señal para asignar el tipo de usuario "Superusuario" cuando se crea un superusuario
 @receiver(post_save, sender=Usuario)
