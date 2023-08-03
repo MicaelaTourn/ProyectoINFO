@@ -19,7 +19,8 @@
         })
         .then(function(result){
             if (result.isConfirmed){             
-                window.location.href = "{% url 'articulos:delete_articulo' pk=articulo.pk %}";
+                window.location.href = '/articulos/articulo/delete/'+id+'/';
+                /* window.location.href = "{% url 'articulos:delete_articulo' pk=articulo.pk %}"; */
             }
         })
     }
@@ -87,9 +88,6 @@
                                             <!-- Comment Row -->
                                             <div class="d-flex flex-row comment-row">
                                                 <!-- BUSCAR IMAGEN DEL USUARIO -->
-                                                
-
-
                                                 <div class="p-2"><img src="{{ comentario.usuario_comentario.imagen.url}}"
                                                         alt="user" width="50" class="rounded-circle"></div>
                                                 <div class="comment-text active w-100">
@@ -105,7 +103,7 @@
                                                                     href="{% url 'articulos:edit_comentario' comentario_id=comentario.pk %}">Editar</a></button>
                                                             {% endif %}                                             
                                                             {% if comentario.usuario_comentario == user or user.is_superuser or user.is_staff%}                                                            
-                                                            <button type="button" onclick="eliminarComentario()" class="btn btn-danger btn-sm"><a class="dropdown-item"
+                                                            <button type="button" onclick="eliminarComentario({{comentario.pk}})" class="btn btn-danger btn-sm"><a class="dropdown-item"
                                                                     href="#">Borrar</a></button>       
                                                             {% endif %}
                                                             
@@ -121,7 +119,7 @@
                                 <!-- BLOQUE QUE GENERA MSJ DE CONFIRMACION DE LA ELIMINACION DEL COMENTARIO -->
                                 {% block eliminarComentario %}
                                     <script>
-                                        function eliminarComentario() {
+                                        function eliminarComentario(id) {
                                             Swal.fire({
                                                 'title': '¿Estas seguro?',
                                                 'text': 'Esta acción no se puede deshacer',
@@ -134,7 +132,7 @@
                                             })
                                             .then(function(result){
                                                 if (result.isConfirmed){             
-                                                    window.location.href = "{% url 'articulos:delete_comentario' comentario_id=comentario.pk %}";
+                                                    window.location.href = '/articulos/comentario/delete/'+id+'/';
                                                 }
                                             })
                                         }

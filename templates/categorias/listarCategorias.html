@@ -32,8 +32,6 @@
                                     <td><strong>{{categoria}}</strong></td>
                                     <td><a name="edit_categoria" class="btn btn-secondary btn-sm" href="{% url 'articulos:edit_categoria' categoria.pk %}"
                                         role="button">Editar</a></td>
-                                    <!-- <td><a name="delete_categoria" class="btn btn-danger btn-sm" href="{% url 'articulos:delete_categoria' categoria.pk %}"
-                                        role="button">Borrar</a></td> -->
                                     <td><a name="delete_categoria" onclick="eliminarCategoria({{categoria.pk}})" class="btn btn-danger btn-sm" href="#"
                                         role="button">Borrar</a></td>
                                         
@@ -52,8 +50,8 @@
                                                     'confirmButtonColor': '#dc3545',
                                                 })
                                                 .then(function(result){
-                                                    if (result.isConfirmed){             
-                                                        window.location.href = '{% url 'articulos:delete_categoria' categoria.pk %}';
+                                                    if (result.isConfirmed){ 
+                                                        window.location.href = '/articulos/categorias/delete/'+id+'/';
                                                     }
                                                 })
                                             }
