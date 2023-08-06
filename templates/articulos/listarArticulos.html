@@ -39,7 +39,27 @@
                   {% else %}
                     <h2>No hay Articulos</h>
                   {% endif %}
-
+                  <div>
+                    {% if  articulos.paginator.num_pages >= 2  %}
+                      <span class="current-page"><strong>Página {{ articulos.number }} de {{ articulos.paginator.num_pages }}</strong></span>
+                      <hr>
+                    {% endif %}
+                    
+                    
+                    {% if articulos.has_previous %}
+                    <a class="btn btn-outline-success btn-sm" href="?page=1"> << </a>
+                    <a  class="btn btn-outline-success btn-sm" href="?page={{ articulos.previous_page_number }}">Previous</a>
+                    {% endif %}
+                    
+                    
+                    
+                    {% if articulos.has_next %}
+                    <a class="btn btn-outline-success btn-sm" href="?page={{ articulos.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-success btn-sm" href="?page={{ articulos.paginator.num_pages }}">>></a>
+                    {% endif %}
+                    
+                  </div>
+                 
 
                 </div>
               </div>

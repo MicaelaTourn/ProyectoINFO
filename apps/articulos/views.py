@@ -5,6 +5,8 @@ from .models import Articulo, Categoria, Comentario
 from .forms import ArticuloForm, CategoriaForm, ComentarioForm
 from django.http import HttpResponseForbidden
 from django.contrib import messages
+from django.core.paginator import Paginator
+from django.http import Http404
 """ --------------------------------------------------
                    ARTICULOS
 -------------------------------------------------- """
@@ -36,15 +38,20 @@ def listarArticulos(request):
     orden_desc = request.GET.get('orden_desc')
     if orden_desc:
         articulos = articulos.order_by('-titulo')
-    
 
-
+    page = request.GET.get('page',1)
+    try:
+        paginator = Paginator(articulos,4)
+        articulos = paginator.page(page)
+    except:
+        raise Http404
 
     contexto = {
         'articulos': articulos,    
         'categorias': Categoria.objects.all(),
         
     }
+    
     return render(request, 'articulos/listarArticulos.html',contexto)
 
 # BUSCAR ARTICULO SELECCIONADO
